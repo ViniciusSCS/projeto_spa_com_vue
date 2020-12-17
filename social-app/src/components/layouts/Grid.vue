@@ -1,14 +1,15 @@
 <template>
-    <div class="">
-        <card-conteudo/>
+    <div :class="'col s'+ tamanho">
+        <slot/>
     </div>
 </template>
 
 <script>
-import CardConteudo from "../../components/social/CardConteudo";
 export default {
-    name: 'Home',
-    components: {CardConteudo},
+    name: 'Grid',
+    props: [
+        'tamanho',
+    ],
     data() {
         return {}
     }
