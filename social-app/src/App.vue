@@ -11,13 +11,13 @@
                         <card-menu>
                             <div class="row valign-wrapper">
                                 <grid tamanho="4">
-                                    <img src="https://materializecss.com/images/yuna.jpg" alt=""
+                                    <img src="http://engenheirocompvinicius.com.br/assets/img/vscs.png" alt=""
                                     class="circle responsive-img">
                                     <!-- notice the "circle" class -->
                                 </grid>
                                 <grid tamanho="8">
                                     <span class="black-text">
-                                        <h5>Maria Cidadã</h5>
+                                        <h5>Vinícius Sarmento</h5>
                                         Add the "circle" class to it to make it appear circular.
                                     </span>
                                 </grid>
@@ -48,11 +48,11 @@
 
 <script>
 
-import Home from "./pages/home/Home";
-import NavBar from "./components/layouts/NavBar";
-import Rodape from "./components/layouts/Rodape";
-import Grid from "./components/layouts/Grid";
-import CardMenu from "./components/layouts/CardMenu";
+import Home from "@/pages/home/Home";
+import Grid from "@/components/layouts/Grid";
+import NavBar from "@/components/layouts/NavBar";
+import Rodape from "@/components/layouts/Rodape";
+import CardMenu from "@/components/layouts/CardMenu";
 
 export default {
     name: 'App',
