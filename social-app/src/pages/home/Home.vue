@@ -1,6 +1,5 @@
 <template>
-    <span>
-
+    <site>
         <publicar-conteudo/>
 
         <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
@@ -12,10 +11,11 @@
                           titulo="Card Title"/>
 
         </card-conteudo>
-    </span>
+    </site>
 </template>
 
 <script>
+import Site from "@/templates/Site";
 import Grid from "@/components/layouts/Grid";
 import CardDetalhe from "@/components/social/CardDetalhe";
 import CardConteudo from "@/components/social/CardConteudo";
@@ -23,7 +23,7 @@ import PublicarConteudo from "@/components/social/PublicarConteudo";
 
 export default {
     name: 'Home',
-    components: {PublicarConteudo, Grid, CardDetalhe, CardConteudo},
+    components: {Site, PublicarConteudo, Grid, CardDetalhe, CardConteudo},
     data() {
         return {}
     }
