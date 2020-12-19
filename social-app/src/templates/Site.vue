@@ -4,6 +4,7 @@
             <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br">
                 <li><router-link to="/">HOME</router-link></li>
                 <li><router-link to="/login">LOGIN</router-link></li>
+                <li><router-link to="/cadastro">CADASTRO</router-link></li>
             </nav-bar>
         </header>
 

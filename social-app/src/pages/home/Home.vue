@@ -4,7 +4,6 @@
             <grid tamanho="4">
                 <img src="http://engenheirocompvinicius.com.br/assets/img/vscs.png" alt=""
                      class="circle responsive-img">
-<!-- notice the "circle" class -->
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
