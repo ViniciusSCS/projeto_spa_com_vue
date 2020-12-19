@@ -8,11 +8,7 @@
         </span>
 
         <span slot="principal">
-            <div id="login-page" class="row">
-                <grid class="z-depth-6 card-panel" tamanho="12">
-                    <acesso/>
-                </grid>
-            </div>
+            <acesso/>
         </span>
 
     </login-template>
