@@ -1,7 +1,9 @@
 <template>
     <span>
         <header>
-                <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br"/>
+                <nav-bar cor="green darken-1"
+                         logo="Sistema SPA"
+                         url="http://engenheirocompvinicius.com.br"/>
         </header>
         <main>
             <div class="container">

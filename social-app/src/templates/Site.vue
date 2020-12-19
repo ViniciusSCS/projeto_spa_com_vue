@@ -2,8 +2,8 @@
     <span>
         <header>
             <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br">
-                <li><a href="#/">HOME</a></li>
-                <li><a href="#/login">LOGIN</a></li>
+                <li><router-link to="/">HOME</router-link></li>
+                <li><router-link to="/login">LOGIN</router-link></li>
             </nav-bar>
         </header>
 
