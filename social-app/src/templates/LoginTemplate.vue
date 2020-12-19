@@ -1,18 +1,19 @@
 <template>
     <span>
         <header>
-            <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br"/>
+                <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br"/>
         </header>
-
         <main>
             <div class="container">
                 <div class="row">
-                    <grid tamanho="6">
-
+                    <grid tamanho="8">
+                        <card-menu>
+                            <slot name="menuEsquerdo"/>
+                        </card-menu>
                     </grid>
 
-                    <grid tamanho="6">
-                        <slot/>
+                    <grid tamanho="4">
+                        <slot name="principal"/>
                     </grid>
                 </div>
             </div>
@@ -31,11 +32,18 @@
         </rodape>
 
     </span>
+
 </template>
 
 <script>
+import CardMenu from "../components/layouts/CardMenu";
+import Site from "./Site";
+import Rodape from "../components/layouts/Rodape";
+import Grid from "../components/layouts/Grid";
+import NavBar from "../components/layouts/NavBar";
 export default {
-    name: "LoginTemplate"
+    name: "LoginTemplate",
+    components: {NavBar, Grid, Rodape, Site, CardMenu}
 }
 </script>
 
