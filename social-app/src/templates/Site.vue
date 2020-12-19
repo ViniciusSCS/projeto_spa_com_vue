@@ -18,7 +18,7 @@
                                 <grid tamanho="8">
                                     <span class="black-text">
                                         <h5>Vinícius Sarmento</h5>
-                                        Add the "circle" class to it to make it appear circular.
+                                        Engenheiro de Computação
                                     </span>
                                 </grid>
                             </div>

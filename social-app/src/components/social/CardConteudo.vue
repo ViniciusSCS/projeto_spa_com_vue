@@ -21,7 +21,10 @@
             <div class="card-action">
                 <p>
                     <i class="material-icons">favorite_border</i>
+                    &af;
                     <i class="material-icons">comment</i>
+                    &af;
+                    <i class="material-icons">thumb_up</i>
                 </p>
             </div>
         </div>
