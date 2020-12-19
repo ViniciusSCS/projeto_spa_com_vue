@@ -1,7 +1,10 @@
 <template>
     <span>
         <header>
-            <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br"/>
+            <nav-bar cor="green darken-1" logo="Sistema SPA" url="http://engenheirocompvinicius.com.br">
+                <li><a href="#/">HOME</a></li>
+                <li><a href="#/login">LOGIN</a></li>
+            </nav-bar>
         </header>
 
         <main>
@@ -10,23 +13,13 @@
                     <grid tamanho="4">
                         <card-menu>
                             <div class="row valign-wrapper">
-                                <grid tamanho="4">
-                                    <img src="http://engenheirocompvinicius.com.br/assets/img/vscs.png" alt=""
-                                         class="circle responsive-img">
-                                    <!-- notice the "circle" class -->
-                                </grid>
-                                <grid tamanho="8">
-                                    <span class="black-text">
-                                        <h5>Vinícius Sarmento</h5>
-                                        Engenheiro de Computação
-                                    </span>
-                                </grid>
+                                <slot name="menuEsquerdo"/>
                             </div>
                         </card-menu>
                     </grid>
 
                     <grid tamanho="8">
-                        <slot/>
+                        <slot name="principal"/>
                     </grid>
                 </div>
             </div>
@@ -52,6 +45,7 @@ import Grid from "@/components/layouts/Grid";
 import NavBar from "@/components/layouts/NavBar";
 import Rodape from "@/components/layouts/Rodape";
 import CardMenu from "../components/layouts/CardMenu";
+
 export default {
     name: "Site",
     components: {CardMenu, NavBar, Grid, Rodape}

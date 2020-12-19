@@ -1,38 +1,55 @@
 <template>
     <site>
-        <publicar-conteudo/>
+        <span slot="menuEsquerdo">
+            <grid tamanho="4">
+                <img src="http://engenheirocompvinicius.com.br/assets/img/vscs.png" alt=""
+                     class="circle responsive-img">
+<!-- notice the "circle" class -->
+            </grid>
+            <grid tamanho="8">
+                <span class="black-text">
+                    <h5>Vinícius Sarmento</h5>
+                    Engenheiro de Computação
+                </span>
+            </grid>
+        </span>
 
-        <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                       nome="Vinícius Sarmento"
-                       data="19/12/2020 00:10">
+        <span slot="principal">
 
-            <card-detalhe url_imagem="https://www.torredevigilancia.com/wp-content/uploads/2019/10/coringa-55.jpg"
-                          texto="Melhor filme de 2020!!"
-                          titulo="Card Title"/>
+            <publicar-conteudo/>
 
-        </card-conteudo>
+            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
+                           nome="Vinícius Sarmento"
+                           data="19/12/2020 00:10">
 
+                <card-detalhe url_imagem="https://www.torredevigilancia.com/wp-content/uploads/2019/10/coringa-55.jpg"
+                              texto="Melhor filme de 2020!!"
+                              titulo="Card Title"/>
 
-        <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                       nome="Vinícius Sarmento"
-                       data="18/12/2020 23:58">
-
-            <card-detalhe url_imagem="https://s1.1zoom.me/b6742/381/Sky_Night_Moon_Clouds_542827_1920x1080.jpg"
-                          texto="Noite top!!"
-                          titulo="Card Title"/>
-
-        </card-conteudo>
+            </card-conteudo>
 
 
-        <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                       nome="Vinícius Sarmento"
-                       data="17/12/2020 17:15">
+            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
+                           nome="Vinícius Sarmento"
+                           data="18/12/2020 23:58">
 
-            <card-detalhe url_imagem="https://cutt.ly/zhL51ps"
-                          texto="TE AMO TIMAIS!!!"
-                          titulo="Card Title"/>
+                <card-detalhe url_imagem="https://s1.1zoom.me/b6742/381/Sky_Night_Moon_Clouds_542827_1920x1080.jpg"
+                              texto="Noite top!!"
+                              titulo="Card Title"/>
 
-        </card-conteudo>
+            </card-conteudo>
+
+
+            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
+                           nome="Vinícius Sarmento"
+                           data="17/12/2020 17:15">
+
+                <card-detalhe url_imagem="https://cutt.ly/zhL51ps"
+                              texto="TE AMO TIMAIS!!!"
+                              titulo="Card Title"/>
+
+            </card-conteudo>
+        </span>
 
     </site>
 </template>
