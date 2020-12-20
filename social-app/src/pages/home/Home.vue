@@ -8,7 +8,7 @@
             <grid tamanho="8">
                 <span class="black-text">
                     <h5>Vinícius Sarmento</h5>
-                    Engenheiro de Computação
+                    Engenheiro de Computação | Desenvolvedor WEB
                 </span>
             </grid>
         </span>

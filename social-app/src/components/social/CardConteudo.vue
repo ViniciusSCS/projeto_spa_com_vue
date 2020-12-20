@@ -4,7 +4,8 @@
             <div class="card-content">
                 <div class="row valign-wrapper">
                     <grid tamanho="1">
-                        <img :src="perfil" :alt="nome"
+                        <img :src="perfil"
+                             :alt="nome"
                              class="circle responsive-img">
                         <!-- notice the "circle" class -->
                     </grid>
