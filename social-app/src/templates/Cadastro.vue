@@ -12,12 +12,12 @@
             <div id="login-page" class="row">
                 <grid class="z-depth-6 card-panel" tamanho="12">
                     <div class="row">
-            <grid class="input-field" tamanho="12">
-                <i class="material-icons prefix">people_outline</i>
-                <input class="validate" id="nome" type="text">
-                <label for="nome" data-error="wrong" data-success="right">Nome</label>
-            </grid>
-        </div>
+                <grid class="input-field" tamanho="12">
+                    <i class="material-icons prefix">people_outline</i>
+                    <input class="validate" id="nome" type="text">
+                    <label for="nome" data-error="wrong" data-success="right">Nome</label>
+                </grid>
+            </div>
 
                     <div class="row">
                         <grid class="input-field" tamanho="12">
@@ -38,8 +38,8 @@
                     <div class="row">
                         <grid class="input-field" tamanho="12">
                             <i class="material-icons prefix">lock_outline</i>
-                            <input id="password" type="password">
-                            <label for="password">Confirme sua Senha</label>
+                            <input id="confirmar_senha" type="password">
+                            <label for="confirmar_senha">Confirme sua Senha</label>
                         </grid>
                     </div>
 

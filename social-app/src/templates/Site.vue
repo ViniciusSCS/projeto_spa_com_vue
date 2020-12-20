@@ -31,10 +31,9 @@
                 descricao="Sistema de estudo relacionado ao curso da Udemy"
                 copyrigth="© Estudo Udemy 2020">
             <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Home</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                  <li><router-link class="grey-text text-lighten-3" to="/">Home</router-link></li>
+                  <li><router-link class="grey-text text-lighten-3" to="/login">Logn</router-link></li>
+                  <li><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
 
@@ -45,7 +44,7 @@
 import Grid from "@/components/layouts/Grid";
 import NavBar from "@/components/layouts/NavBar";
 import Rodape from "@/components/layouts/Rodape";
-import CardMenu from "../components/layouts/CardMenu";
+import CardMenu from "@/components/layouts/CardMenu";
 
 export default {
     name: "Site",
