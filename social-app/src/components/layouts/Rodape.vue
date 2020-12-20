@@ -2,16 +2,16 @@
     <footer :class="'page-footer ' + cor">
         <div class="container">
             <div class="row">
-                <div class="col l6 s12">
+                <grid tamanho="12 l6">
                     <h5 class="white-text">{{ titulo }}</h5>
                     <p class="grey-text text-lighten-4">{{ descricao }}</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
+                </grid>
+                <grid tamanho="12 l4 offset-l2">
                     <h5 class="white-text">Links</h5>
                     <ul>
                         <slot/>
                     </ul>
-                </div>
+                </grid>
             </div>
         </div>
         <div class="footer-copyright">
@@ -23,8 +23,10 @@
 </template>
 
 <script>
+import Grid from "./Grid";
 export default {
     name: 'Rodape',
+    components: {Grid},
     props: [
         'cor',
         'url',
