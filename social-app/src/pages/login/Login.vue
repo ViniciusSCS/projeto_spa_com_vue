@@ -3,7 +3,7 @@
 
         <span slot="menuEsquerdo">
             <ul>
-                  <img src="https://cutt.ly/NhCtr6a" alt="" style="" class="displayed responsive-img">
+                  <img src="https://cutt.ly/NhCtr6a" class="displayed responsive-img">
             </ul>
         </span>
 
