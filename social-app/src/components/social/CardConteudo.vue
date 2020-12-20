@@ -25,7 +25,7 @@
                     &af;
                     <i class="material-icons">comment</i>
                     &af;
-                    <i class="material-icons">thumb_up</i>
+                    <i class="material-icons">send</i>
                 </p>
             </div>
         </div>

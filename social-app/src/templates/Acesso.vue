@@ -28,14 +28,14 @@
 
             <div class="row">
                 <grid class="input-field" tamanho="12">
-                    <button class="btn waves-effect waves-light col s12">Login</button>
+                    <button class="btn waves-effect waves-light col s12">Entrar</button>
                 </grid>
             </div>
 
             <div class="row">
                 <grid class="input-field" tamanho="6 m6 l6">
                     <p class="margin medium-small">
-                        <router-link class="btn waves-effect waves-light blue" to="/cadastro">Registrar</router-link>
+                        <router-link class="btn waves-effect waves-light blue" to="/cadastro">Criar nova conta</router-link>
                     </p>
                 </grid>
             </div>
