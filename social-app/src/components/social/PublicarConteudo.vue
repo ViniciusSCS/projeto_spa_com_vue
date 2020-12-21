@@ -5,7 +5,7 @@
             <label for="conteudo">O que está acontecendo?</label>
         </grid>
         <p>
-            <grid v-if="conteudo" class="btn waves-effect waves-light" tamanho="2 offset-s10">
+            <grid v-if="conteudo" class="btn waves-effect waves-light" tamanho="3 offset-s9">
                 <i class="material-icons left">send</i> PUBLICAR
             </grid>
         </p>
