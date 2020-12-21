@@ -39,15 +39,6 @@
             </card-conteudo>
 
 
-            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                           nome="Vinícius Sarmento"
-                           data="17/12/2020 17:15">
-
-                <card-detalhe url_imagem="https://cutt.ly/zhL51ps"
-                              texto="TE AMO TIMAIS!!!"
-                              titulo="Card Title"/>
-
-            </card-conteudo>
         </span>
 
     </site>
