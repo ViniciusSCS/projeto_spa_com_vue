@@ -14,6 +14,7 @@
 
 <script>
 import Grid from "../layouts/Grid";
+
 export default {
 
     name: 'PublicarConteudo',
