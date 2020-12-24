@@ -26,6 +26,10 @@ Route::post('/cadastro', function (Request $request){
        'password' => 'required|string|min:6|confirmed',
     ]);
 
+    if($validacao->fails()){
+        return $validacao->errors();
+    }
+
     $user = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
