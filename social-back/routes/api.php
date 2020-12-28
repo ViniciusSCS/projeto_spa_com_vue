@@ -1,8 +1,9 @@
 <?php
 
 use \App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use \Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Auth;
+use \Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Validator;
 
 /*
@@ -39,6 +40,28 @@ Route::post('/cadastro', function (Request $request){
     $user->token = $user->createToken($user->email)->accessToken;
 
     return $user;
+});
+
+Route::post('/login', function (Request $request){
+    $data = $request->all();
+
+    $validacao = Validator::make($data, [
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string',
+    ]);
+
+    if($validacao->fails()){
+        return $validacao->errors();
+    }
+
+    if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+        $user = auth()->user();
+        $user->token = $user->createToken($user->email)->accessToken;
+        return $user;
+
+    }else{
+        return ['status' => false];
+    }
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

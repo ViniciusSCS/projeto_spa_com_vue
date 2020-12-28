@@ -15,11 +15,10 @@
 </template>
 
 <script>
-import LoginTemplate from "@/templates/LoginTemplate";
-import Grid from "@/components/layouts/Grid";
 import Acesso from "@/templates/Acesso";
 import Cadastro from "@/templates/Cadastro";
-
+import Grid from "@/components/layouts/Grid";
+import LoginTemplate from "@/templates/LoginTemplate";
 export default {
     name: "Login",
     components: {Cadastro, Acesso, Grid, LoginTemplate},

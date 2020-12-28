@@ -4,16 +4,16 @@
             <div class="row">
                 <grid class="input-field" tamanho="12">
                     <i class="material-icons prefix">mail_outline</i>
-                    <input class="validate" id="email" type="email">
                     <label for="email" data-error="wrong" data-success="right">E-mail</label>
+                    <input class="validate" id="email" type="email" v-model="email">
                 </grid>
             </div>
 
             <div class="row">
                 <grid class="input-field" tamanho="12">
                     <i class="material-icons prefix">lock_outline</i>
-                    <input id="password" type="password">
                     <label for="password">Senha</label>
+                    <input id="password" type="password" v-model="password">
                 </grid>
             </div>
 
@@ -28,14 +28,15 @@
 
             <div class="row">
                 <grid class="input-field" tamanho="12">
-                    <button class="btn waves-effect waves-light col s12">Entrar</button>
+                    <button class="btn waves-effect waves-light col s12" v-on:click="acessar">Entrar</button>
                 </grid>
             </div>
 
             <div class="row">
                 <grid class="input-field" tamanho="6 m6 l6">
                     <p class="margin medium-small">
-                        <router-link class="btn waves-effect waves-light blue" to="/cadastro">Criar nova conta</router-link>
+                        <router-link class="btn waves-effect waves-light blue" to="/cadastro">Criar nova conta
+                        </router-link>
                     </p>
                 </grid>
             </div>
@@ -44,10 +45,34 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Grid from "../components/layouts/Grid";
+
 export default {
     name: "Acesso",
     components: {Grid},
+    data() {
+        return {
+            email: '',
+            password: '',
+        }
+    },
+    methods: {
+        acessar() {
+            var self = this
+
+            axios.post('localhost:8000/api/login', {
+                email: self.email,
+                password: self.password
+            })
+            .then(function (response) {
+                console.log('ACESSO', response);
+            })
+            .catch(function (error) {
+                console.log('FALHOU, ', error);
+            })
+        },
+    }
 }
 </script>
 
