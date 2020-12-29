@@ -13,7 +13,7 @@
                 <grid class="input-field" tamanho="12">
                     <i class="material-icons prefix">lock_outline</i>
                     <label for="password">Senha</label>
-                    <input class="validate" id="password" type="password" v-model="password">
+                    <input class="validate" min="6" id="password" type="password" v-model="password">
                 </grid>
             </div>
 
@@ -73,16 +73,49 @@ export default {
     methods: {
         acessar() {
             var self = this
-            console.log('OK')
+
             http.post('/login', {
                 email: self.email,
                 password: self.password
             })
             .then(function (response) {
-                console.log('ACESSO.: ', response);
+                if(response.data.token){
+                    console.log('SUCESSO ', response.data)
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Usuário ' + response.data.name + ' logado com sucesso!!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }else if (response.data.status == false){
+                    console.log('FALSE ')
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Usuário não existe!',
+                    })
+                }else{
+                    console.log('VALIDAÇÃO')
+                    var erros = '';
+                    for (var e of Object.values(response.data)){
+                        erros += e + ' ';
+                    }
+                    console.log(erros)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Erro: ' + erros,
+                    })
+                }
             })
             .catch(function (error) {
                 console.log('ERRO.: ', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'ERRO, tente novamente mais tarde!',
+                })
             });
         },
     }
