@@ -60,7 +60,7 @@ export default {
     methods: {
         acessar() {
             var self = this
-
+            console.log('OK')
             axios.post('localhost:8000/api/login', {
                 email: self.email,
                 password: self.password
