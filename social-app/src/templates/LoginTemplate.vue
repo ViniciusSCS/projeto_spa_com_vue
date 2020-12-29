@@ -3,7 +3,10 @@
         <header>
                 <nav-bar cor="green darken-1"
                          logo="Sistema SPA"
-                         url="http://engenheirocompvinicius.com.br"/>
+                         url="http://engenheirocompvinicius.com.br">
+                    <li v-if="usuario"><router-link to="/perfil">{{ usuario.name }}</router-link></li>
+                    <li v-if="usuario"><a v-on:click="sair()">Sair</a></li>
+                </nav-bar>
         </header>
         <main>
             <div class="container">
@@ -27,8 +30,9 @@
                 copyrigth="© Estudo Udemy 2020">
             <ul>
                   <li><router-link class="grey-text text-lighten-3" to="/">Home</router-link></li>
-                  <li><router-link class="grey-text text-lighten-3" to="/login">Logn</router-link></li>
-                  <li><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">Login</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3"
+                                                   to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
     </span>
@@ -36,14 +40,38 @@
 </template>
 
 <script>
-import CardMenu from "../components/layouts/CardMenu";
 import Site from "./Site";
-import Rodape from "../components/layouts/Rodape";
 import Grid from "../components/layouts/Grid";
+import Rodape from "../components/layouts/Rodape";
 import NavBar from "../components/layouts/NavBar";
+import CardMenu from "../components/layouts/CardMenu";
+
 export default {
     name: "LoginTemplate",
-    components: {NavBar, Grid, Rodape, Site, CardMenu}
+    data() {
+        return {
+            usuario: false,
+        }
+    },
+    components: {NavBar, Grid, Rodape, Site, CardMenu},
+    created() {
+        var self = this
+
+        console.log('created()')
+        var aux = sessionStorage.getItem('usuario')
+        if (aux) {
+            console.log('Usuário Valido', aux)
+            self.usuario = JSON.parse(aux)
+        }
+    },
+    methods:{
+        sair(){
+            var self = this
+
+            sessionStorage.clear()
+            self.usuario = false
+        },
+    }
 }
 </script>
 

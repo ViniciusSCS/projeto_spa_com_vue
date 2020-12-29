@@ -80,7 +80,6 @@ export default {
             })
             .then(function (response) {
                 if(response.data.token){
-                    console.log('SUCESSO ', response.data)
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -88,8 +87,8 @@ export default {
                         showConfirmButton: false,
                         timer: 1500
                     })
+                    sessionStorage.setItem('usuario', JSON.stringify(response.data))
                 }else if (response.data.status == false){
-                    console.log('FALSE ')
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -101,7 +100,6 @@ export default {
                     for (var e of Object.values(response.data)){
                         erros += e + ' ';
                     }
-                    console.log(erros)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
