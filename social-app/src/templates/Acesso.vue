@@ -45,8 +45,20 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Grid from "../components/layouts/Grid";
+
+import axios from "axios"
+
+export const http = axios.create({
+    baseURL: 'http://localhost:8000/api',
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': '*',
+    },
+
+})
+
 
 export default {
     name: "Acesso",
@@ -57,11 +69,12 @@ export default {
             password: '',
         }
     },
+
     methods: {
         acessar() {
             var self = this
             console.log('OK')
-            axios.post('localhost:8000/api/login', {
+            http.post('/login', {
                 email: self.email,
                 password: self.password
             })
