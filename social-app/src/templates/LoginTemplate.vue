@@ -57,11 +57,10 @@ export default {
     created() {
         var self = this
 
-        console.log('created()')
         var aux = sessionStorage.getItem('usuario')
         if (aux) {
-            console.log('Usuário Valido', aux)
             self.usuario = JSON.parse(aux)
+            self.$router.push('/')
         }
     },
     methods:{

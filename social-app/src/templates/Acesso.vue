@@ -88,6 +88,7 @@ export default {
                         timer: 1500
                     })
                     sessionStorage.setItem('usuario', JSON.stringify(response.data))
+                    self.$router.push('/')
                 }else if (response.data.status == false){
                     Swal.fire({
                         icon: 'error',
