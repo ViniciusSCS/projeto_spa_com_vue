@@ -11,6 +11,9 @@
                     Engenheiro de Computação | Desenvolvedor WEB
                 </span>
             </grid>
+            <span>
+                <router-link to="/perfil" style="font-size: small; text-align: center">Alterar Perfil</router-link>
+            </span>
         </span>
 
         <span slot="principal">
