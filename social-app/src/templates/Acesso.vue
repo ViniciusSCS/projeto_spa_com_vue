@@ -96,7 +96,6 @@ export default {
                         text: 'Usuário não existe!',
                     })
                 }else{
-                    console.log('VALIDAÇÃO')
                     var erros = '';
                     for (var e of Object.values(response.data)){
                         erros += e + ' ';

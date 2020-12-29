@@ -29,10 +29,8 @@
                 descricao="Sistema de estudo relacionado ao curso da Udemy"
                 copyrigth="© Estudo Udemy 2020">
             <ul>
-                  <li><router-link class="grey-text text-lighten-3" to="/">Home</router-link></li>
                   <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">Login</router-link></li>
-                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3"
-                                                   to="/cadastro">Cadastro</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
     </span>

@@ -37,8 +37,7 @@
             <ul>
                   <li><router-link class="grey-text text-lighten-3" to="/">Home</router-link></li>
                   <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">Login</router-link></li>
-                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3"
-                                                   to="/cadastro">Cadastro</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
 
@@ -65,6 +64,8 @@ export default {
         var aux = sessionStorage.getItem('usuario')
         if (aux) {
             self.usuario = JSON.parse(aux)
+        }else{
+            self.$router.push('/login')
         }
     },
     methods:{
@@ -73,6 +74,7 @@ export default {
 
             sessionStorage.clear()
             self.usuario = false
+            self.$router.push('/login')
         },
     }
 }
