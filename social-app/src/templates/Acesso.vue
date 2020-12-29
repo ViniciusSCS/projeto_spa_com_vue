@@ -13,7 +13,7 @@
                 <grid class="input-field" tamanho="12">
                     <i class="material-icons prefix">lock_outline</i>
                     <label for="password">Senha</label>
-                    <input id="password" type="password" v-model="password">
+                    <input class="validate" id="password" type="password" v-model="password">
                 </grid>
             </div>
 
@@ -28,7 +28,7 @@
 
             <div class="row">
                 <grid class="input-field" tamanho="12">
-                    <button class="btn waves-effect waves-light col s12" v-on:click="acessar">Entrar</button>
+                    <button class="btn waves-effect waves-light col s12" v-on:click="acessar()">Entrar</button>
                 </grid>
             </div>
 
@@ -66,11 +66,11 @@ export default {
                 password: self.password
             })
             .then(function (response) {
-                console.log('ACESSO', response);
+                console.log('ACESSO.: ', response);
             })
             .catch(function (error) {
-                console.log('FALHOU, ', error);
-            })
+                console.log('ERRO.: ', error);
+            });
         },
     }
 }
