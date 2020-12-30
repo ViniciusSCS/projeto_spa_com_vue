@@ -8,7 +8,7 @@
             <grid tamanho="8">
                 <span class="black-text">
                     <h5>{{usuario.name}}</h5>
-                    Engenheiro de Computação | Desenvolvedor WEB
+                    {{usuario.description_user || ''}}
                 </span>
             </grid>
             <span>

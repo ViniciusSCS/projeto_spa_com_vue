@@ -2,10 +2,10 @@
 
 use \App\Models\User;
 use \Illuminate\Http\Request;
+use \Illuminate\Validation\Rule;
 use \Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +73,6 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
 
     $user = $request->user();
     $data = $request->all();
-
     if(isset($data['password'])){
         $validacao = Validator::make($data, [
             'name' => 'required|string|max:255',
@@ -92,6 +91,7 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
         }
 
         $user->password = bcrypt($data['password']);
+        $user->description_user = $data['description_user'];
 
     }else{
         $validacao = Validator::make($data, [
@@ -111,7 +111,9 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
 
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->description_user = $data['description_user'];
     }
+
 
     $user->save();
 

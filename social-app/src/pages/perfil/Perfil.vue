@@ -39,6 +39,13 @@
                     </div>
 
                     <div class="row">
+                        <div class="input-field col s12">
+                            <label for="textarea1">Textarea</label>
+                            <textarea id="textarea1" class="materialize-textarea" v-model="description_user"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <grid class="input-field" tamanho="12">
                             <i class="material-icons prefix">lock_outline</i>
                             <input id="password" type="password" v-model="password">
@@ -91,6 +98,7 @@ export default {
             name: '',
             email: '',
             password: '',
+            description_user: null,
             password_confirmation: '',
         }
     },
@@ -103,6 +111,7 @@ export default {
             self.name = self.usuario.name
             self.email = self.usuario.email
             self.password = self.usuario.password
+            self.description_user = self.usuario.description_user
             self.password_confirmation = self.usuario.password_confirmation
         }
     },
@@ -115,12 +124,12 @@ export default {
                 name: self.name,
                 email: self.email,
                 password: self.password,
+                description_user: self.description_user,
                 password_confirmation: self.password_confirmation,
 
             }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
                 .then(function (response) {
                     if (response.data.token) {
-                        console.log("Atualizado: ", response.data)
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -131,14 +140,12 @@ export default {
                         sessionStorage.setItem('usuario', JSON.stringify(response.data))
 
                     } else if (response.data.status == false) {
-                        console.log("Atualizado STATUS erro: ", response.data)
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Erro ao cadastrar Usuário!',
                         })
                     } else {
-                        console.log("Atualizado ERRO : ", response.data)
                         var erros = '';
                         for (var e of Object.values(response.data)) {
                             erros += e + ' ';
@@ -151,7 +158,6 @@ export default {
                     }
                 })
                 .catch(function (error) {
-                    console.log('ERRO.: ', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
