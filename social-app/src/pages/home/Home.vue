@@ -20,8 +20,8 @@
 
             <publicar-conteudo/>
 
-            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                           nome="Vinícius Sarmento"
+            <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
+                           :nome="usuario.name"
                            data="19/12/2020 00:10">
 
                 <card-detalhe url_imagem="https://cdn.pixabay.com/photo/2017/01/29/13/20/mobile-devices-2017978_1280.png"
@@ -30,8 +30,8 @@
             </card-conteudo>
 
 
-            <card-conteudo perfil="http://engenheirocompvinicius.com.br/assets/img/vscs.png"
-                           nome="Vinícius Sarmento"
+            <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
+                           :nome="usuario.name"
                            data="18/12/2020 23:58">
 
                 <card-detalhe url_imagem="https://s1.1zoom.me/b6742/381/Sky_Night_Moon_Clouds_542827_1920x1080.jpg"
