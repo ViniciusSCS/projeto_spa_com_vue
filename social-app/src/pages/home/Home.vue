@@ -2,7 +2,7 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img src="http://engenheirocompvinicius.com.br/assets/img/vscs.png" alt=""
+                <img src="https://cutt.ly/0jeMJOa" alt=""
                      class="circle responsive-img">
             </grid>
             <grid tamanho="8">
