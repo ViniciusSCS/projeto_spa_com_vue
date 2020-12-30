@@ -168,7 +168,7 @@ export default {
                             timer: 1500,
                         })
                         self.usuario = response.data
-                        sessionStorage.setItem('usuario', JSON.stringify(response.data))
+                        sessionStorage.setItem('usuario', JSON.stringify(self.usuario))
 
                     } else if (response.data.status == false) {
                         Swal.fire({

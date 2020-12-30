@@ -111,28 +111,28 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
         }
 
 
-        //Trata imagem
-        if(isset($data['imagem'])){
-            $nameImg = time();
-            $diretorioPai = 'profiles';
-            $diretorioImg =  $diretorioPai.DIRECTORY_SEPARATOR.'profile_id_'.$user->id;
-            $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') -11);
-
-            $urlImagem = $diretorioImg.DIRECTORY_SEPARATOR.$nameImg.'.'.$ext;
-
-            $file = str_replace('data:imagem/'.$ext.';base64,', '', $data['imagem']);
-
-            $file = base64_decode($file);
-
-            Storage::put($urlImagem, $file);
-
-            $user->imagem = $urlImagem;
-
-        }
-
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->description_user = $data['description_user'];
+    }
+
+    //Trata imagem
+    if(isset($data['imagem'])){
+        $nameImg = time();
+        $diretorioPai = 'profiles';
+        $diretorioImg =  $diretorioPai.DIRECTORY_SEPARATOR.'profile_id_'.$user->id;
+        $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') -11);
+
+        $urlImagem = $diretorioImg.DIRECTORY_SEPARATOR.$nameImg.'.'.$ext;
+
+        $file = str_replace('data:imagem/'.$ext.';base64,', '', $data['imagem']);
+
+        $file = base64_decode($file);
+
+        Storage::put($urlImagem, $file);
+
+        $user->imagem = $urlImagem;
+
     }
 
 
