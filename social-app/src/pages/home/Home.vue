@@ -2,7 +2,7 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img src="https://cutt.ly/0jeMJOa" alt=""
+                <img :src="usuario.imagem || 'https://cutt.ly/0jeMJOa'" alt=""
                      class="circle responsive-img">
             </grid>
             <grid tamanho="8">

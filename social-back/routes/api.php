@@ -113,23 +113,38 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
 
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->description_user = $data['description_user'];
+
+        if(isset($user->description_user))
+            $user->description_user = $data['description_user'];
+        else
+            $user->description_user = '';
     }
 
     //Trata imagem
     if(isset($data['imagem'])){
         $nameImg = time();
         $diretorioPai = 'profiles';
-        $diretorioImg =  $diretorioPai.DIRECTORY_SEPARATOR.'profile_id_'.$user->id;
-        $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') -11);
+        $diretorioImagem = $diretorioPai.DIRECTORY_SEPARATOR.'profile_id_'.$user->id;
+        $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') - 11);
+        $urlImagem = $diretorioImagem.DIRECTORY_SEPARATOR.$nameImg.'.'.$ext;
 
-        $urlImagem = $diretorioImg.DIRECTORY_SEPARATOR.$nameImg.'.'.$ext;
-
-        $file = str_replace('data:imagem/'.$ext.';base64,', '', $data['imagem']);
-
+        $file = str_replace('data:image/'.$ext.';base64,','',$data['imagem']);
         $file = base64_decode($file);
 
-        Storage::put($urlImagem, $file);
+        if(!file_exists($diretorioPai)){
+            mkdir($diretorioPai,0700);
+        }
+        if($user->imagem){
+            if(file_exists($user->imagem)){
+                unlink($user->imagem);
+            }
+        }
+
+        if(!file_exists($diretorioImagem)){
+            mkdir($diretorioImagem,0700);
+        }
+
+        file_put_contents($urlImagem,$file);
 
         $user->imagem = $urlImagem;
 
