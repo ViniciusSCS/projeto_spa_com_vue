@@ -24,9 +24,8 @@
                            nome="Vinícius Sarmento"
                            data="19/12/2020 00:10">
 
-                <card-detalhe url_imagem="https://www.torredevigilancia.com/wp-content/uploads/2019/10/coringa-55.jpg"
-                              texto="Melhor filme de 2020!!"
-                              titulo="Card Title"/>
+                <card-detalhe url_imagem="https://cdn.pixabay.com/photo/2017/01/29/13/20/mobile-devices-2017978_1280.png"
+                              texto="Desenvolvimento Web!!"/>
 
             </card-conteudo>
 
@@ -36,8 +35,7 @@
                            data="18/12/2020 23:58">
 
                 <card-detalhe url_imagem="https://s1.1zoom.me/b6742/381/Sky_Night_Moon_Clouds_542827_1920x1080.jpg"
-                              texto="Noite top!!"
-                              titulo="Card Title"/>
+                              texto="Noite top!!"/>
 
             </card-conteudo>
 
