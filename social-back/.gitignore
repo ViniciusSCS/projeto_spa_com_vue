@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+/public/profiles
+/public/profiles/*
 /public/storage
 /storage/*.key
 /vendor
