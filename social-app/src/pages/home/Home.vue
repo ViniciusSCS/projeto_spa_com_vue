@@ -7,7 +7,7 @@
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
-                    <h5>Vinícius Sarmento</h5>
+                    <h5>{{usuario.name}}</h5>
                     Engenheiro de Computação | Desenvolvedor WEB
                 </span>
             </grid>
@@ -58,8 +58,20 @@ export default {
     name: 'Home',
     components: {Site, PublicarConteudo, Grid, CardDetalhe, CardConteudo},
     data() {
-        return {}
-    }
+        return {
+            usuario: false,
+        }
+    },
+    created() {
+        var self = this
+
+        var aux = sessionStorage.getItem('usuario')
+        if (aux) {
+            self.usuario = JSON.parse(aux)
+        }else{
+            self.$router.push('/login')
+        }
+    },
 }
 </script>
 
