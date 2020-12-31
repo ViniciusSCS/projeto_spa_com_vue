@@ -174,7 +174,7 @@ export default {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Erro ao cadastrar Usuário!',
+                            text: 'Erro ao atualizar Usuário!',
                         })
                     } else {
                         var erros = '';

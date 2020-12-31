@@ -20,16 +20,16 @@ use \Illuminate\Support\Facades\Validator;
 */
 
 
-Route::post('/cadastro', function (Request $request){
+Route::post('/cadastro', function (Request $request) {
     $data = $request->all();
 
     $validacao = Validator::make($data, [
-       'name' => 'required|string|max:255',
-       'email' => 'required|string|email|max:255|unique:users',
-       'password' => 'required|string|min:6|confirmed',
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|confirmed',
     ]);
 
-    if($validacao->fails()){
+    if ($validacao->fails()) {
         return $validacao->errors();
     }
 
@@ -44,7 +44,7 @@ Route::post('/cadastro', function (Request $request){
     return $user;
 });
 
-Route::post('/login', function (Request $request){
+Route::post('/login', function (Request $request) {
     $data = $request->all();
 
     $validacao = Validator::make($data, [
@@ -52,17 +52,17 @@ Route::post('/login', function (Request $request){
         'password' => 'required|string',
     ]);
 
-    if($validacao->fails()){
+    if ($validacao->fails()) {
         return $validacao->errors();
     }
 
-    if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+    if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
         $user = auth()->user();
         $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
         return $user;
 
-    }else{
+    } else {
         return ['status' => false];
     }
 });
@@ -75,7 +75,7 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
 
     $user = $request->user();
     $data = $request->all();
-    if(isset($data['password'])){
+    if (isset($data['password'])) {
         $validacao = Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => [
@@ -88,14 +88,14 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        if($validacao->fails()){
+        if ($validacao->fails()) {
             return $validacao->errors();
         }
 
         $user->password = bcrypt($data['password']);
         $user->description_user = $data['description_user'];
 
-    }else{
+    } else {
         $validacao = Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => [
@@ -105,9 +105,10 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
                 'max:255',
                 Rule::unique('users')->ignore($user->id)
             ],
+            'photo' => 'mimes:jpg, png, jpeg',
         ]);
 
-        if($validacao->fails()){
+        if ($validacao->fails()) {
             return $validacao->errors();
         }
 
@@ -115,37 +116,47 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
         $user->name = $data['name'];
         $user->email = $data['email'];
 
-        if(isset($user->description_user))
+        if (isset($user->description_user))
             $user->description_user = $data['description_user'];
         else
             $user->description_user = '';
     }
 
     //Trata imagem
-    if(isset($data['imagem'])){
+    if (isset($data['imagem'])) {
         $nameImg = time();
         $diretorioPai = 'profiles';
-        $diretorioImagem = $diretorioPai.DIRECTORY_SEPARATOR.'profile_id_'.$user->id;
+        $diretorioImagem = $diretorioPai . DIRECTORY_SEPARATOR . 'profile_id_' . $user->id;
         $ext = substr($data['imagem'], 11, strpos($data['imagem'], ';') - 11);
-        $urlImagem = $diretorioImagem.DIRECTORY_SEPARATOR.$nameImg.'.'.$ext;
+        $urlImagem = $diretorioImagem . DIRECTORY_SEPARATOR . $nameImg . '.' . $ext;
 
-        $file = str_replace('data:image/'.$ext.';base64,','',$data['imagem']);
+        $file = str_replace('data:image/' . $ext . ';base64,', '', $data['imagem']);
         $file = base64_decode($file);
 
-        if(!file_exists($diretorioPai)){
-            mkdir($diretorioPai,0700);
-        }
-        if($user->imagem){
-            if(file_exists($user->imagem)){
-                unlink($user->imagem);
+        if ($ext == 'ation/pdf') {
+
+            return ['Imagem inválida'];
+
+        } elseif ($ext == 'jpeg' || $ext == 'png' || $ext == 'jpg' ) {
+
+            if (!file_exists($diretorioPai)) {
+                mkdir($diretorioPai, 0700);
             }
-        }
+            if ($user->imagem) {
+                if (file_exists($user->imagem)) {
+                    unlink($user->imagem);
+                }
+            }
 
-        if(!file_exists($diretorioImagem)){
-            mkdir($diretorioImagem,0700);
-        }
+            if (!file_exists($diretorioImagem)) {
+                mkdir($diretorioImagem, 0700);
+            }
 
-        file_put_contents($urlImagem,$file);
+            file_put_contents($urlImagem, $file);
+
+        }else{
+            return ['Selecione uma imagem'];
+        }
 
         $user->imagem = $urlImagem;
 
