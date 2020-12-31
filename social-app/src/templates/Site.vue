@@ -21,6 +21,11 @@
                                 <slot name="menuEsquerdo"/>
                             </div>
                         </card-menu>
+                        <card-menu>
+                            <div class="row valign-wrapper">
+                                <h2>Amigos</h2>
+                            </div>
+                        </card-menu>
                     </grid>
 
                     <grid tamanho="8">

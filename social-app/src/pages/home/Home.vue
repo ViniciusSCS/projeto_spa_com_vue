@@ -17,9 +17,7 @@
         </span>
 
         <span slot="principal">
-
             <publicar-conteudo/>
-
             <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
                            :nome="usuario.name"
                            data="19/12/2020 00:10">
@@ -29,7 +27,6 @@
 
             </card-conteudo>
 
-
             <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
                            :nome="usuario.name"
                            data="18/12/2020 23:58">
@@ -38,10 +35,7 @@
                               texto="Noite top!!"/>
 
             </card-conteudo>
-
-
         </span>
-
     </site>
 </template>
 

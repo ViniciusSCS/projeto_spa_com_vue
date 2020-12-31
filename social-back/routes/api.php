@@ -124,6 +124,47 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
 
     //Trata imagem
     if (isset($data['imagem'])) {
+
+        Validator::extend('base64imagem', function ($attribute, $value, $parameters, $validator) {
+            $explode = explode(',', $value);
+            $allow = [
+                'jpg',
+                'png',
+                'jpeg',
+                'svg',
+            ];
+            $format = str_replace(
+                [
+                    'data:image/',
+                    ';',
+                    'base64',
+                ],
+                [
+                    '', '', '',
+                ],
+                $explode[0]
+            );
+
+            if (!in_array($format, $allow)){
+                return false;
+            }
+            if(!preg_match('%[a-zA-Z0-9/+]*={0,2}$%', $explode[1])){
+                return false;
+            }
+
+            return true;
+        });
+
+
+        $validacao = Validator::make($data, [
+            'imagem' => 'base64imagem',
+        ], ['base64imagem' => 'Imagem inválida']);
+
+        if ($validacao->fails()) {
+            return $validacao->errors();
+        }
+
+
         $nameImg = time();
         $diretorioPai = 'profiles';
         $diretorioImagem = $diretorioPai . DIRECTORY_SEPARATOR . 'profile_id_' . $user->id;
@@ -133,30 +174,20 @@ Route::middleware('auth:api')->put('/perfil', function (Request $request) {
         $file = str_replace('data:image/' . $ext . ';base64,', '', $data['imagem']);
         $file = base64_decode($file);
 
-        if ($ext == 'ation/pdf') {
-
-            return ['Imagem inválida'];
-
-        } elseif ($ext == 'jpeg' || $ext == 'png' || $ext == 'jpg' ) {
-
-            if (!file_exists($diretorioPai)) {
-                mkdir($diretorioPai, 0700);
-            }
-            if ($user->imagem) {
-                if (file_exists($user->imagem)) {
-                    unlink($user->imagem);
-                }
-            }
-
-            if (!file_exists($diretorioImagem)) {
-                mkdir($diretorioImagem, 0700);
-            }
-
-            file_put_contents($urlImagem, $file);
-
-        }else{
-            return ['Selecione uma imagem'];
+        if (!file_exists($diretorioPai)) {
+            mkdir($diretorioPai, 0700);
         }
+        if ($user->imagem) {
+            if (file_exists($user->imagem)) {
+                unlink($user->imagem);
+            }
+        }
+
+        if (!file_exists($diretorioImagem)) {
+            mkdir($diretorioImagem, 0700);
+        }
+
+        file_put_contents($urlImagem, $file);
 
         $user->imagem = $urlImagem;
 
