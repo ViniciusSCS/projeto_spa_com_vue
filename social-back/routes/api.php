@@ -7,6 +7,7 @@ use \Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use \Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,39 +34,46 @@ Route::post('/cadastro', function (Request $request) {
         return $validacao->errors();
     }
 
+    $imagem = '/avatar.png';
+
     $user = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
         'password' => bcrypt($data['password']),
+        'imagem' => $imagem,
     ]);
 
+    $user->imagem = asset($user->imagem);
     $user->token = $user->createToken($user->email)->accessToken;
 
     return $user;
 });
 
-Route::post('/login', function (Request $request) {
-    $data = $request->all();
-
-    $validacao = Validator::make($data, [
-        'email' => 'required|string|email|max:255',
-        'password' => 'required|string',
-    ]);
-
-    if ($validacao->fails()) {
-        return $validacao->errors();
-    }
-
-    if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-        $user = auth()->user();
-        $user->imagem = asset($user->imagem);
-        $user->token = $user->createToken($user->email)->accessToken;
-        return $user;
-
-    } else {
-        return ['status' => false];
-    }
-});
+Route::post('/login',
+//    function (Request $request) {
+//    $data = $request->all();
+//
+//    $validacao = Validator::make($data, [
+//        'email' => 'required|string|email|max:255',
+//        'password' => 'required|string',
+//    ]);
+//
+//    if ($validacao->fails()) {
+//        return $validacao->errors();
+//    }
+//
+//    if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+//        $user = auth()->user();
+//        $user->imagem = asset($user->imagem);
+//        $user->token = $user->createToken($user->email)->accessToken;
+//        return $user;
+//
+//    } else {
+//        return ['status' => false];
+//    }
+//}
+    [UsuarioController::class, 'login']
+);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

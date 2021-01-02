@@ -2,7 +2,7 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img :src="usuario.imagem || 'https://cutt.ly/0jeMJOa'" alt=""
+                <img :src="usuario.imagem" alt=""
                      class="circle responsive-img">
             </grid>
             <grid tamanho="8">
@@ -161,14 +161,27 @@ export default {
                 .then(function (response) {
                     if (response.data.token) {
                         Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Atualização realizada com sucesso!!',
-                            showConfirmButton: false,
-                            timer: 1500,
+                            title: 'Deseja mesmo atualizar?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: 'Cancelar!',
+                            confirmButtonText: 'Sim, Atualizar!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Atualização realizada com sucesso!!',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                })
+                                self.usuario = response.data
+                                sessionStorage.setItem('usuario', JSON.stringify(self.usuario))
+                            }
                         })
-                        self.usuario = response.data
-                        sessionStorage.setItem('usuario', JSON.stringify(self.usuario))
+
 
                     } else if (response.data.status == false) {
                         Swal.fire({
