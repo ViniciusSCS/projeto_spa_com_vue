@@ -7,8 +7,8 @@
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
-                    <h5>{{usuario.name}}</h5>
-                    {{usuario.description_user || ''}}
+                    <h5>{{ usuario.name }}</h5>
+                    {{ usuario.description_user || '' }}
                 </span>
             </grid>
             <span>
@@ -18,16 +18,17 @@
 
         <span slot="principal">
             <publicar-conteudo/>
-            <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
+            <card-conteudo :perfil="usuario.imagem"
                            :nome="usuario.name"
                            data="19/12/2020 00:10">
 
-                <card-detalhe url_imagem="https://cdn.pixabay.com/photo/2017/01/29/13/20/mobile-devices-2017978_1280.png"
-                              texto="Desenvolvimento Web!!"/>
+                <card-detalhe
+                    url_imagem="https://cdn.pixabay.com/photo/2017/01/29/13/20/mobile-devices-2017978_1280.png"
+                    texto="Desenvolvimento Web!!"/>
 
             </card-conteudo>
 
-            <card-conteudo :perfil="usuario.imagem || 'https://cutt.ly/0jeMJOa'"
+            <card-conteudo :perfil="usuario.imagem"
                            :nome="usuario.name"
                            data="18/12/2020 23:58">
 
@@ -60,7 +61,7 @@ export default {
         var aux = sessionStorage.getItem('usuario')
         if (aux) {
             self.usuario = JSON.parse(aux)
-        }else{
+        } else {
             self.$router.push('/login')
         }
     },
