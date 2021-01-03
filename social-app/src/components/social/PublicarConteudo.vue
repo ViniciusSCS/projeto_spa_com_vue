@@ -5,8 +5,10 @@
             <label for="conteudo">O que está acontecendo?</label>
         </grid>
         <p>
-            <grid v-if="conteudo" class="btn waves-effect waves-light" tamanho="3 offset-s9">
-                <i class="material-icons left">send</i> PUBLICAR
+            <grid v-if="conteudo" tamanho="3 offset-s10">
+                <button  class="btn waves-effect waves-light left" v-on:click="publicar">
+                    <i class="material-icons left" >send</i> PUBLICAR
+                </button>
             </grid>
         </p>
     </div>
@@ -23,6 +25,13 @@ export default {
     data() {
         return {
             conteudo: '',
+        }
+    },
+    methods: {
+        publicar: function () {
+            var self = this
+
+            console.log('publicado', self.conteudo)
         }
     }
 }
