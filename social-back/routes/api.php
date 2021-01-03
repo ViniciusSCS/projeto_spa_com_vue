@@ -15,10 +15,8 @@ use App\Http\Controllers\UsuarioController;
 */
 
 
+Route::post('/login', [UsuarioController::class, 'login']);
 Route::post('/cadastro', [UsuarioController::class, 'cadastro']);
 
-Route::post('/login', [UsuarioController::class, 'login']);
-
 Route::middleware('auth:api')->get('/user', [UsuarioController::class, 'usuario']);
-
 Route::middleware('auth:api')->put('/perfil', [UsuarioController::class, 'perfil']);
