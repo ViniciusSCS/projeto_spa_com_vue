@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
@@ -58,7 +58,7 @@ class UsuarioController extends Controller
             return $validacao->errors();
         }
 
-        $imagem = '/avatar.png';
+        $imagem = '/img/avatar.png';
 
         $user = User::create([
             'name' => $data['name'],
@@ -216,9 +216,9 @@ class UsuarioController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function usuario(Request $request)
     {
-        //
+        return $request->user();
     }
 
     /**

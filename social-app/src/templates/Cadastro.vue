@@ -3,7 +3,8 @@
     <login-template>
         <span slot="menuEsquerdo">
             <ul>
-                  <img src="https://cutt.ly/NhCtr6a" alt="" style="" class="displayed responsive-img">
+                  <img src="@/assets/sistema.jpg" alt="" style="" class="displayed responsive-img">
+<!--                  <img src="https://cutt.ly/NhCtr6a" alt="" style="" class="displayed responsive-img">-->
             </ul>
         </span>
 
