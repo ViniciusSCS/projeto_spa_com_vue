@@ -6,3 +6,7 @@ composer require laravel/passport
 php artisan migrate
 
 php artisan passport:install
+
+CORS:
+
+https://github.com/fruitcake/laravel-cors
