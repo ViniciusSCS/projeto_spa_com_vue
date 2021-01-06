@@ -31,7 +31,10 @@ export default {
         publicar: function () {
             var self = this
 
-            console.log('publicado', self.conteudo)
+            if(self.conteudo === null || self.conteudo === '')
+                console.log('Impossível publicar conteudo!')
+            else
+                console.log('Conteúdo publicado', self.conteudo)
         }
     }
 }
