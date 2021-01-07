@@ -31,10 +31,11 @@ export default {
         publicar: function () {
             var self = this
 
-            if(self.conteudo === null || self.conteudo === '')
-                console.log('Impossível publicar conteudo!')
+            //Verifica se a publicação possui espaços.
+            if(self.conteudo.trim() === '')
+                console.log('Impossível publicar conteúdo!') //Ajustar mensagens
             else
-                console.log('Conteúdo publicado', self.conteudo)
+                console.log('Conteúdo publicado.: ', self.conteudo.trim()) //Ajustar mensagens
         }
     }
 }
