@@ -93,7 +93,7 @@ export default {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Usuário não existe!',
+                        text: 'Nome de usuário ou senha incorretos. Por favor tente novamente!',
                     })
                 }else{
                     var erros = '';
