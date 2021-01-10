@@ -15,6 +15,13 @@ class CreateConteudosTable extends Migration
     {
         Schema::create('conteudos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('titulo');
+            $table->longText('texto');
+            $table->string('imagem');
+            $table->string('link');
+            $table->dateTime('data');
             $table->timestamps();
         });
     }
