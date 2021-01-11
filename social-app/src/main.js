@@ -8,13 +8,11 @@ import router from './router'
 Vue.config.productionTip = false
 
 Vue.use(axios.create({
-    baseURL: 'http://localhost:8000/',
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-    },
+    baseURL: 'http://localhost:8000/api',
 }))
+
+Vue.prototype.$http = axios
+Vue.prototype.$urlApi = 'http://localhost:8000/api/'
 
 /* eslint-disable no-new */
 new Vue({

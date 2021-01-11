@@ -49,16 +49,6 @@ import Grid from "../components/layouts/Grid";
 
 import axios from "axios"
 
-export const http = axios.create({
-    baseURL: 'http://localhost:8000/api',
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-    },
-
-})
-
 
 export default {
     name: "Acesso",
@@ -74,7 +64,7 @@ export default {
         acessar() {
             var self = this
 
-            http.post('/login', {
+            self.$http.post(self.$urlApi + 'login', {
                 email: self.email,
                 password: self.password
             })

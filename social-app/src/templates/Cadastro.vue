@@ -69,15 +69,6 @@ import LoginTemplate from "./LoginTemplate";
 
 import axios from "axios"
 
-export const http = axios.create({
-    baseURL: 'http://localhost:8000/api',
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-    },
-
-})
 
 export default {
     name: "Cadastro",
@@ -94,7 +85,7 @@ export default {
         cadastro() {
             var self = this
 
-            http.post('/cadastro', {
+            self.$http.post(self.$urlApi + 'cadastro', {
                 name: self.name,
                 email: self.email,
                 password: self.password,

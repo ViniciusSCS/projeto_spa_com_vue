@@ -89,16 +89,6 @@ import Grid from "@/components/layouts/Grid";
 
 import axios from "axios"
 
-export const http = axios.create({
-    baseURL: 'http://localhost:8000/api',
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': '*',
-    },
-
-})
-
 export default {
     name: "Perfil",
     data() {
@@ -149,7 +139,7 @@ export default {
         perfil() {
             var self = this
 
-            http.put('/perfil', {
+            self.$http.put(self.$urlApi + 'perfil', {
                 name: self.name,
                 email: self.email,
                 imagem: self.imagem,
