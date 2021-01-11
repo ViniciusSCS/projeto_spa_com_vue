@@ -72,8 +72,8 @@ import axios from "axios"
 
 export default {
     name: "Cadastro",
-    data(){
-        return{
+    data() {
+        return {
             name: '',
             email: '',
             password: '',
@@ -81,7 +81,7 @@ export default {
         }
     },
     components: {LoginTemplate, Grid},
-    methods:{
+    methods: {
         cadastro() {
             var self = this
 
@@ -92,43 +92,44 @@ export default {
                 password_confirmation: self.password_confirmation,
 
             })
-            .then(function (response) {
-                if(response.data.token){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Cadastro realizado com sucesso!!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    sessionStorage.setItem('usuario', JSON.stringify(response.data))
-                    self.$router.push('/')
-                }else if (response.data.status == false){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Erro ao cadastrar Usuário!',
-                    })
-                }else{
-                    var erros = '';
-                    for (var e of Object.values(response.data)){
-                        erros += e + ' ';
+                .then(function (response) {
+                    if (response.data.status) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Cadastro realizado com sucesso!!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        sessionStorage.setItem('usuario', JSON.stringify(response.data.usuario))
+                        self.$router.push('/')
+                    } else if (response.data.status == false && response.data.validacao) {
+                        var erros = '';
+                        for (var e of Object.values(response.data.erros)) {
+                            erros += e + ' ';
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro: ' + erros,
+                        })
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro ao cadastrar Usuário!',
+                        })
                     }
+                })
+                .catch(function (error) {
+                    console.log('ERRO.: ', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Erro: ' + erros,
+                        text: 'ERRO, tente novamente mais tarde!',
                     })
-                }
-            })
-            .catch(function (error) {
-                console.log('ERRO.: ', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'ERRO, tente novamente mais tarde!',
-                })
-            });
+                });
         },
     }
 }

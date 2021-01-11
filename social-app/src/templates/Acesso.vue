@@ -68,43 +68,43 @@ export default {
                 email: self.email,
                 password: self.password
             })
-            .then(function (response) {
-                if(response.data.token){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Usuário ' + response.data.name + ' logado com sucesso!!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    sessionStorage.setItem('usuario', JSON.stringify(response.data))
-                    self.$router.push('/')
-                }else if (response.data.status == false){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Nome de usuário ou senha incorretos. Por favor tente novamente!',
-                    })
-                }else{
-                    var erros = '';
-                    for (var e of Object.values(response.data)){
-                        erros += e + ' ';
+                .then(function (response) {
+                    if (response.data.status) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Usuário ' + response.data.usuario.name + ' logado com sucesso!!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        sessionStorage.setItem('usuario', JSON.stringify(response.data.usuario))
+                        self.$router.push('/')
+                    } else if (response.data.status == false && response.data.validacao) {
+                        var erros = '';
+                        for (var e of Object.values(response.data.erros)) {
+                            erros += e + ' ';
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro: ' + erros,
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Nome de usuário ou senha incorretos. Por favor tente novamente!',
+                        })
                     }
+                })
+                .catch(function (error) {
+                    console.log('ERRO.: ', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Erro: ' + erros,
+                        text: 'ERRO, tente novamente mais tarde!',
                     })
-                }
-            })
-            .catch(function (error) {
-                console.log('ERRO.: ', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'ERRO, tente novamente mais tarde!',
-                })
-            });
+                });
         },
     }
 }

@@ -25,14 +25,14 @@ class UsuarioController extends Controller
         ]);
 
         if ($validacao->fails()) {
-            return $validacao->errors();
+            return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
         }
 
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
             $user = auth()->user();
             $user->imagem = asset($user->imagem);
             $user->token = $user->createToken($user->email)->accessToken;
-            return $user;
+            return ['status' => true, "usuario" => $user];
 
         } else {
             return ['status' => false];
@@ -55,7 +55,7 @@ class UsuarioController extends Controller
         ]);
 
         if ($validacao->fails()) {
-            return $validacao->errors();
+            return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
         }
 
         $imagem = '/img/avatar.png';
@@ -70,7 +70,7 @@ class UsuarioController extends Controller
         $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
 
-        return $user;
+        return ['status' => true, "usuario" => $user];
     }
 
     /**
@@ -98,7 +98,7 @@ class UsuarioController extends Controller
             ]);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
             }
 
             $user->password = bcrypt($data['password']);
@@ -118,7 +118,7 @@ class UsuarioController extends Controller
             ]);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
             }
 
 
@@ -170,7 +170,7 @@ class UsuarioController extends Controller
             ], ['base64imagem' => 'Imagem inválida']);
 
             if ($validacao->fails()) {
-                return $validacao->errors();
+                return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
             }
 
 
@@ -207,7 +207,7 @@ class UsuarioController extends Controller
 
         $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
-        return $user;
+        return ['status' => true, "usuario" => $user];
     }
 
     /**

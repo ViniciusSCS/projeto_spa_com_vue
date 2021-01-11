@@ -7,8 +7,8 @@
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
-                    <h5>{{usuario.name}}</h5>
-                    {{usuario.description_user || ''}}
+                    <h5>{{ usuario.name }}</h5>
+                    {{ usuario.description_user || '' }}
                 </span>
             </grid>
         </span>
@@ -120,11 +120,11 @@ export default {
     components: {Site, Grid},
     methods: {
 
-        upload(event){
+        upload(event) {
             var self = this
 
             var file = event.target.files || event.dataTransfer.files;
-            if(!file.length){
+            if (!file.length) {
                 return
             }
 
@@ -149,7 +149,7 @@ export default {
 
             }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
                 .then(function (response) {
-                    if (response.data.token) {
+                    if (response.data.status) {
                         Swal.fire({
                             title: 'Deseja mesmo atualizar?',
                             icon: 'warning',
@@ -167,27 +167,28 @@ export default {
                                     showConfirmButton: false,
                                     timer: 1500,
                                 })
-                                self.usuario = response.data
+                                self.usuario = response.data.usuario
                                 sessionStorage.setItem('usuario', JSON.stringify(self.usuario))
                             }
                         })
 
 
-                    } else if (response.data.status == false) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Erro ao atualizar Usuário!',
-                        })
-                    } else {
+                    } else if (response.data.status == false && response.data.validacao) {
                         var erros = '';
-                        for (var e of Object.values(response.data)) {
+                        for (var e of Object.values(response.data.erros)) {
                             erros += e + ' ';
                         }
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Erro: ' + erros,
+                        })
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro ao atualizar Usuário!',
                         })
                     }
                 })
