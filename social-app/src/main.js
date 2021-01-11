@@ -7,10 +7,6 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-Vue.use(axios.create({
-    baseURL: 'http://localhost:8000/api',
-}))
-
 Vue.prototype.$http = axios
 Vue.prototype.$urlApi = 'http://localhost:8000/api/'
 
