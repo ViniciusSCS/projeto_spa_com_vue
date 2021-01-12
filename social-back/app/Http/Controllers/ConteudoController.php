@@ -18,19 +18,18 @@ class ConteudoController extends Controller
         $data = $request->all();
         $user = $request->user();
 
-        //Validação
+        // validação
 
-        $conteudo = new Conteudo();
+        $conteudo = new Conteudo;
 
         $conteudo->link = $data['link'];
         $conteudo->texto = $data['texto'];
         $conteudo->imagem = $data['imagem'];
         $conteudo->data = date('Y-m-d H:i:s');
 
-        $user->conteudos()->save();
+        $user->conteudos()->save($conteudo);
 
-
-        return ['status' => true, "conteudos" => $user->conteudos];
+        return ['status'=>true,"conteudos" => $user->conteudos];
 
     }
 

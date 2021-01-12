@@ -9,7 +9,7 @@
         </grid>
 
         <grid v-if="conteudo.texto" tamanho="3 offset-s9">
-            <button class="btn waves-effect waves-light left right-align" @click="publicar">
+            <button class="btn waves-effect waves-light left right-align" @click="publicar()">
                 <i class="material-icons left">send</i> PUBLICAR
             </button>
         </grid>
@@ -43,7 +43,7 @@ export default {
             if (self.conteudo.texto.trim() === '')
                 console.log('Impossível publicar conteúdo!') //Ajustar mensagens
             else {
-                self.$http.post(self.$urlApi + "conteudo/adicionar", {
+                self.$http.post(self.$urlApi + 'conteudo/adicionar', {
                     link: self.conteudo.link,
                     texto: self.conteudo.texto,
                     imagem: self.conteudo.imagem,
