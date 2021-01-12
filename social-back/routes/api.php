@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Conteudo;
 use App\Models\User;
 use \Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ConteudoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +19,14 @@ use App\Http\Controllers\UsuarioController;
 
 Route::post('/login', [UsuarioController::class, 'login']);
 Route::post('/cadastro', [UsuarioController::class, 'cadastro']);
+//Route::post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 
 Route::middleware('auth:api')->get('/user', [UsuarioController::class, 'usuario']);
 Route::middleware('auth:api')->put('/perfil', [UsuarioController::class, 'perfil']);
+Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 
-Route::get('/testes', function () {
-    $user = User::find(1);
+//Route::get('/testes', function () {
+//    $user = User::find(1);
 
     /*Exemplo de adicionar Conteúdo*/
 
@@ -35,15 +37,13 @@ Route::get('/testes', function () {
 //        'titulo' => 'Conteudo 3',
 //        'imagem' => 'URL da imagem',
 //    ]);
-//
+
 //    return $user->conteudos;
 
     /*Exemplo de adicionar Amigos*/
 
 //    $user2 = User::find(2);
-
 //    $user->amigos()->toggle($user2->id);
-
 //    return $user->amigos;
 
     /*Exemplo de adicionar Comentários*/
@@ -52,7 +52,7 @@ Route::get('/testes', function () {
     /*Exemplo de adicionar Curtidas*/
 
 //    $conteudo = Conteudo::find(1);
-//
+
 //    $user->curtidas()->toggle($conteudo->id);
 
 //    return $conteudo->curtidas();
@@ -60,19 +60,19 @@ Route::get('/testes', function () {
 
     /*Exemplo de adicionar Comentários*/
 
-    $user2 = User::find(2);
-    $conteudo = Conteudo::find(2);
-    $user->comentarios()->create([
-        'data' => date('Y-m-d'),
-        'texto' => 'Sucesso',
-        'conteudo_id' => $conteudo->id,
-    ]);
+//    $user2 = User::find(2);
+//    $conteudo = Conteudo::find(2);
+//    $user->comentarios()->create([
+//        'data' => date('Y-m-d'),
+//        'texto' => 'Sucesso',
+//        'conteudo_id' => $conteudo->id,
+//    ]);
 
-    $user2->comentarios()->create([
-        'data' => date('Y-m-d'),
-        'texto' => 'Muito Bom!',
-        'conteudo_id' => $conteudo->id,
-    ]);
+//    $user2->comentarios()->create([
+//        'data' => date('Y-m-d'),
+//        'texto' => 'Muito Bom!',
+//        'conteudo_id' => $conteudo->id,
+//    ]);
 
-    return $conteudo->comentarios;
-});
+//    return $conteudo->comentarios;
+//});

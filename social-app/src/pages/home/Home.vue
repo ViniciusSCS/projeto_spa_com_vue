@@ -17,7 +17,7 @@
         </span>
 
         <span slot="principal">
-            <publicar-conteudo/>
+            <publicar-conteudo :usuario="usuario"/>
             <card-conteudo :perfil="usuario.imagem"
                            :nome="usuario.name"
                            data="19/12/2020 00:10">

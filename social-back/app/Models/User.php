@@ -43,6 +43,7 @@ class User extends Authenticatable
     public function conteudos()
     {
         return $this->hasMany(Conteudo::class);
+//        return $this->hasMany(Conteudo::class, 'user_id', 'id');
     }
 
     public function curtidas()

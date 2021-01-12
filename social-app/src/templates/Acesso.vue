@@ -47,8 +47,6 @@
 <script>
 import Grid from "../components/layouts/Grid";
 
-import axios from "axios"
-
 
 export default {
     name: "Acesso",
@@ -98,7 +96,6 @@ export default {
                     }
                 })
                 .catch(function (error) {
-                    console.log('ERRO.: ', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',

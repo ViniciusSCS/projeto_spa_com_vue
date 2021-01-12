@@ -15,7 +15,6 @@ class Conteudo extends Model
         'data',
         'link',
         'texto',
-        'titulo',
         'imagem',
     ];
 
