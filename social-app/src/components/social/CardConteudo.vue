@@ -11,7 +11,7 @@
                     </grid>
                     <grid tamanho="11">
                         <span class="black-text">
-                            <strong>{{ nome }}</strong> - <small>{{ data }}</small>
+                                <strong>{{ nome }}</strong> - <small>{{ data }}</small>
                         </span>
                     </grid>
                 </div>
