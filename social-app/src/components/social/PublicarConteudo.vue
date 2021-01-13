@@ -32,6 +32,7 @@ export default {
                 link: '',
                 texto: '',
                 imagem: '',
+                user_id: this.usuario
             },
         }
     },
@@ -40,39 +41,30 @@ export default {
             var self = this
 
             //Verifica se a publicação possui espaços.
-            if (self.conteudo.texto.trim() === '')
+            if (self.conteudo.texto.trim() === '') {
                 console.log('Impossível publicar conteúdo!') //Ajustar mensagens
-            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Impossível publicar conteúdo!',
+                })
+            } else {
                 self.$http.post(self.$urlApi + 'conteudo/adicionar', {
                     link: self.conteudo.link,
                     texto: self.conteudo.texto,
                     imagem: self.conteudo.imagem,
+                    usuario: self.usuario
                 }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
-                    .then(response => {
+                    .then(function (response) {
+                        console.log(response)
                         if (response.data.status) {
-                            console.log('Entra', response.data);
                             Swal.fire({
-                                title: 'Deseja mesmo publicar conteúdo?',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                cancelButtonText: 'Não, mudei de Ideia!',
-                                confirmButtonText: 'Sim, Publicar!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    Swal.fire({
-                                        position: 'center',
-                                        icon: 'success',
-                                        title: 'Conteúdo publicado com sucesso!!',
-                                        showConfirmButton: false,
-                                        timer: 1500,
-                                    })
-                                    self.conteudo = response.data.conteudo
-                                    sessionStorage.setItem('usuario', JSON.stringify(self.data.usuario))
-                                }
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Conteúdo publicado com sucesso!!',
+                                showConfirmButton: false,
+                                timer: 1500
                             })
-
                         } else if (response.data.status == false && response.data.validacao) {
                             var erros = '';
                             for (var e of Object.values(response.data.erros)) {
@@ -91,6 +83,13 @@ export default {
                                 text: 'Erro ao publicar conteúdo!',
                             })
                         }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'ERRO, tente novamente mais tarde!',
+                        })
                     });
             }
         }

@@ -16,20 +16,20 @@ class ConteudoController extends Controller
     public function adicionar(Request $request)
     {
         $data = $request->all();
-        $user = $request->user();
 
         // validação
 
-        $conteudo = new Conteudo;
+        $conteudo = new Conteudo();
 
         $conteudo->link = $data['link'];
         $conteudo->texto = $data['texto'];
         $conteudo->imagem = $data['imagem'];
         $conteudo->data = date('Y-m-d H:i:s');
+        $conteudo->user_id = $data['usuario']['id'];
 
-        $user->conteudos()->save($conteudo);
+        $conteudo->save();
 
-        return ['status'=>true,"conteudos" => $user->conteudos];
+        return ['status'=>true,"conteudos" => $conteudo];
 
     }
 
