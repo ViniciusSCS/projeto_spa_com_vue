@@ -56,7 +56,6 @@ export default {
                     usuario: self.usuario
                 }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
                     .then(function (response) {
-                        console.log(response)
                         if (response.data.status) {
                             Swal.fire({
                                 position: 'center',
@@ -65,6 +64,9 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            self.conteudo.link = ''
+                            self.conteudo.texto = ''
+                            self.conteudo.imagem = ''
                         } else if (response.data.status == false && response.data.validacao) {
                             var erros = '';
                             for (var e of Object.values(response.data.erros)) {
