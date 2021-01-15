@@ -26,26 +26,9 @@
                             :data="item.data">
 
                 <card-detalhe :url_imagem="item.imagem"
-                              :texto="item.texto"/>
-
-            </card-conteudo>
-
-            <card-conteudo :perfil="usuario.imagem"
-                           :nome="usuario.name"
-                           data="19/12/2020 00:10">
-
-                <card-detalhe
-                    url_imagem="https://cdn.pixabay.com/photo/2017/01/29/13/20/mobile-devices-2017978_1280.png"
-                    texto="Desenvolvimento Web!!"/>
-
-            </card-conteudo>
-
-            <card-conteudo :perfil="usuario.imagem"
-                           :nome="usuario.name"
-                           data="18/12/2020 23:58">
-
-                <card-detalhe url_imagem="https://s1.1zoom.me/b6742/381/Sky_Night_Moon_Clouds_542827_1920x1080.jpg"
-                              texto="Noite top!!"/>
+                              :texto="item.texto"
+                              :perfil="item.perfil"
+                />
 
             </card-conteudo>
         </span>
@@ -79,7 +62,8 @@ export default {
                 .then(function (response) {
                     console.log(response);
                     if(response.data.status){
-                        self.conteudos = response.data.conteudos.data
+                        self.conteudos = self.$store.getters.getTimeline
+                        self.$store.commit('setTimeline', response.data.conteudos.data)
                     }
                 })
                 .catch(e => {

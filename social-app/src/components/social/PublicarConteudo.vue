@@ -65,6 +65,7 @@ export default {
                             self.conteudo.link = ''
                             self.conteudo.texto = ''
                             self.conteudo.imagem = ''
+                            self.$store.commit('setTimeline', response.data.conteudos.data)
                         } else if (response.data.status == false && response.data.validacao) {
                             var erros = '';
                             for (var e of Object.values(response.data.erros)) {

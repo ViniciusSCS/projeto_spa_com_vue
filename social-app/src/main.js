@@ -17,6 +17,7 @@ var store = {
     state: {
         usuario: sessionStorage.getItem('usuario') ?
             JSON.parse(sessionStorage.getItem('usuario')) : null,
+        timeline: []
     },
     getters: {
         getUsuario: state => {
@@ -25,11 +26,17 @@ var store = {
         getToken: state => {
             return state.usuario.token
         },
+        getTimeLine: state => {
+            return state.timeline
+        }
     },
     mutations: {
         setUsuario(state, n){
             state.usuario = n
-        }
+        },
+        setTimeline(state, n){
+            state.timeline = n
+        },
     },
 }
 
