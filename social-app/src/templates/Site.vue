@@ -66,9 +66,9 @@ export default {
     created() {
         var self = this
 
-        var aux = sessionStorage.getItem('usuario')
+        var aux = self.$store.getters.getUsuario
         if (aux) {
-            self.usuario = JSON.parse(aux)
+            self.usuario = self.$store.getters.getUsuario
         }else{
             self.$router.push('/login')
         }
@@ -77,6 +77,7 @@ export default {
         sair(){
             var self = this
 
+            self.$store.commit('setUsuario', null)
             sessionStorage.clear()
             self.usuario = false
             self.$router.push('/login')

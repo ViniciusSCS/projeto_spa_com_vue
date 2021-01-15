@@ -30,7 +30,8 @@
                 copyrigth="© Estudo Udemy 2020">
             <ul>
                   <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">Login</router-link></li>
-                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3"
+                                                   to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
     </span>
@@ -55,20 +56,13 @@ export default {
     created() {
         var self = this
 
-        var aux = sessionStorage.getItem('usuario')
+        var aux = self.$store.getters.getUsuario
         if (aux) {
-            self.usuario = JSON.parse(aux)
+            self.$store.getters.getUsuario
             self.$router.push('/')
         }
     },
-    methods:{
-        sair(){
-            var self = this
-
-            sessionStorage.clear()
-            self.usuario = false
-        },
-    }
+    methods: {}
 }
 </script>
 

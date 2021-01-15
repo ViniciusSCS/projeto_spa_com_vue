@@ -75,6 +75,7 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
+                        self.$store.commit('setUsuario', response.data.usuario)
                         sessionStorage.setItem('usuario', JSON.stringify(response.data.usuario))
                         self.$router.push('/')
                     } else if (response.data.status == false && response.data.validacao) {
