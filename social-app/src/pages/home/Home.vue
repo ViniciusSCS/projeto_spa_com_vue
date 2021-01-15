@@ -17,7 +17,19 @@
         </span>
 
         <span slot="principal">
-            <publicar-conteudo />
+            <publicar-conteudo/>
+
+             <card-conteudo v-for="item in conteudos"
+                            :key="item.id"
+                            :perfil="item.user.imagem"
+                            :nome="item.user.name"
+                            :data="item.data">
+
+                <card-detalhe :url_imagem="item.imagem"
+                              :texto="item.texto"/>
+
+            </card-conteudo>
+
             <card-conteudo :perfil="usuario.imagem"
                            :nome="usuario.name"
                            data="19/12/2020 00:10">
@@ -53,6 +65,7 @@ export default {
     data() {
         return {
             usuario: false,
+            conteudos: [],
         }
     },
     created() {
@@ -61,6 +74,17 @@ export default {
         var aux = self.$store.getters.getUsuario
         if (aux) {
             self.usuario = self.$store.getters.getUsuario
+            self.$http.get(self.$urlApi + 'conteudo/listar',
+                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                .then(function (response) {
+                    console.log(response);
+                    if(response.data.status){
+                        self.conteudos = response.data.conteudos.data
+                    }
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         } else {
             self.$router.push('/login')
         }

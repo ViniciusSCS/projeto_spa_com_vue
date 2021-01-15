@@ -19,10 +19,12 @@ use App\Http\Controllers\ConteudoController;
 
 Route::post('/login', [UsuarioController::class, 'login']);
 Route::post('/cadastro', [UsuarioController::class, 'cadastro']);
-//Route::post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 
 Route::middleware('auth:api')->get('/user', [UsuarioController::class, 'usuario']);
 Route::middleware('auth:api')->put('/perfil', [UsuarioController::class, 'perfil']);
+
+
+Route::middleware('auth:api')->get('/conteudo/listar', [ConteudoController::class, 'listar']);
 Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 
 //Route::get('/testes', function () {

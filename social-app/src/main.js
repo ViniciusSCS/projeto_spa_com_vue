@@ -24,7 +24,7 @@ var store = {
         },
         getToken: state => {
             return state.usuario.token
-        }
+        },
     },
     mutations: {
         setUsuario(state, n){

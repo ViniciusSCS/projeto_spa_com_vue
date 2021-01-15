@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'amigos', 'user_id', 'amigo_id');
     }
 
+    public function getImagemAttribute($value)
+    {
+        return asset($value);
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
