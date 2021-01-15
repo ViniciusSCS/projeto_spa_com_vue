@@ -54,7 +54,7 @@ export default {
                     texto: self.conteudo.texto,
                     imagem: self.conteudo.imagem,
                     usuario: self.usuario
-                }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
+                }, {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                     .then(function (response) {
                         if (response.data.status) {
                             Swal.fire({

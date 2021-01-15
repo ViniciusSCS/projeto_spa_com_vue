@@ -147,7 +147,7 @@ export default {
                 description_user: self.description_user,
                 password_confirmation: self.password_confirmation,
 
-            }, {"headers": {"authorization": "Bearer " + self.usuario.token}})
+            }, {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
                     if (response.data.status) {
                         Swal.fire({
