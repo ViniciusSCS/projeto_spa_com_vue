@@ -23,9 +23,7 @@ export default {
 
     name: 'PublicarConteudo',
     components: {Grid},
-    props: [
-        'usuario',
-    ],
+    props: [],
     data() {
         return {
             conteudo: {
@@ -53,7 +51,7 @@ export default {
                     link: self.conteudo.link,
                     texto: self.conteudo.texto,
                     imagem: self.conteudo.imagem,
-                    usuario: self.usuario
+                    usuario: self.$store.getters.getUsuario
                 }, {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                     .then(function (response) {
                         if (response.data.status) {

@@ -17,7 +17,7 @@
         </span>
 
         <span slot="principal">
-            <publicar-conteudo :usuario="usuario"/>
+            <publicar-conteudo />
             <card-conteudo :perfil="usuario.imagem"
                            :nome="usuario.name"
                            data="19/12/2020 00:10">
@@ -58,9 +58,9 @@ export default {
     created() {
         var self = this
 
-        var aux = sessionStorage.getItem('usuario')
+        var aux = self.$store.getters.getUsuario
         if (aux) {
-            self.usuario = JSON.parse(aux)
+            self.usuario = self.$store.getters.getUsuario
         } else {
             self.$router.push('/login')
         }

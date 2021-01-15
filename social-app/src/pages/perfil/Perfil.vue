@@ -106,9 +106,9 @@ export default {
     created() {
         var self = this
 
-        var aux = sessionStorage.getItem('usuario')
+        var aux = self.$store.getters.getUsuario
         if (aux) {
-            self.usuario = JSON.parse(aux)
+            self.usuario = self.$store.getters.getUsuario
             self.name = self.usuario.name
             self.email = self.usuario.email
             self.imagem = self.usuario.imagem
@@ -168,6 +168,7 @@ export default {
                                     timer: 1500,
                                 })
                                 self.usuario = response.data.usuario
+                                self.$store.commit('setUsuario', response.data.usuario)
                                 sessionStorage.setItem('usuario', JSON.stringify(self.usuario))
                             }
                         })
