@@ -19,7 +19,7 @@
         <span slot="principal">
             <publicar-conteudo/>
 
-             <card-conteudo v-for="item in conteudos"
+             <card-conteudo v-for="item in listaConteudos"
                             :key="item.id"
                             :perfil="item.user.imagem"
                             :nome="item.user.name"
@@ -45,10 +45,14 @@ import PublicarConteudo from "@/components/social/PublicarConteudo";
 export default {
     name: 'Home',
     components: {Site, PublicarConteudo, Grid, CardDetalhe, CardConteudo},
+    computed:{
+      listaConteudos(){
+          return this.$store.getters.getTimeline
+      }
+    },
     data() {
         return {
             usuario: false,
-            conteudos: [],
         }
     },
     created() {
@@ -60,9 +64,8 @@ export default {
             self.$http.get(self.$urlApi + 'conteudo/listar',
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
-                    console.log(response);
+                    console.log(response.data.conteudos);
                     if(response.data.status){
-                        self.conteudos = self.$store.getters.getTimeline
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                     }
                 })

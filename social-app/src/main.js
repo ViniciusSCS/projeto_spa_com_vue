@@ -26,7 +26,7 @@ var store = {
         getToken: state => {
             return state.usuario.token
         },
-        getTimeLine: state => {
+        getTimeline: state => {
             return state.timeline
         }
     },
