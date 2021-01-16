@@ -47,7 +47,7 @@ class ConteudoController extends Controller
 
         $conteudos =  Conteudo::with('user')
             ->orderBy('data', 'desc')
-            ->paginate(5);
+            ->paginate(10);
 
         return ['status'=>true,"conteudos" => $conteudos];
 
