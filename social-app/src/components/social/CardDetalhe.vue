@@ -2,10 +2,13 @@
     <span>
         <div class="card-image">
             <img :src="url_imagem">
-            <span class="card-title">{{ titulo }}</span>
         </div>
         <div class="card-content">
             <p>{{ texto }}</p>
+            <p>
+                <a :href="link">{{ link }}</a>
+
+            </p>
         </div>
     </span>
 
@@ -19,8 +22,8 @@ export default {
     components: {Grid},
     props: [
         'url_imagem',
-        'titulo',
-        'texto'
+        'link',
+        'texto',
     ],
     data() {
         return {}

@@ -27,6 +27,7 @@
 
                 <card-detalhe :url_imagem="item.imagem"
                               :texto="item.texto"
+                              :link="item.link"
                               :perfil="item.perfil"
                 />
 
