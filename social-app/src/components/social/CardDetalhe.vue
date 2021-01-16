@@ -4,7 +4,11 @@
             <img :src="url_imagem">
         </div>
         <div class="card-content">
-            <p>{{ texto }}</p>
+            <p align="justify">
+                <b>
+                    {{ texto }}
+                </b>
+            </p>
             <p>
                 <a :href="link">{{ link }}</a>
 

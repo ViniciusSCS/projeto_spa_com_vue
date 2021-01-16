@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conteudo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ConteudoController extends Controller
 {
@@ -34,6 +35,13 @@ class ConteudoController extends Controller
         $data = $request->all();
 
         // validação
+        $validacao = Validator::make($data, [
+            'texto' => 'required|string|max:255',
+        ]);
+
+        if ($validacao->fails()) {
+            return ['status' => false, 'validacao' => true, "erros" => $validacao->errors()];
+        }
 
         $conteudo = new Conteudo();
 
