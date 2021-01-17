@@ -46,10 +46,10 @@ class ConteudoController extends Controller
         $conteudo = new Conteudo();
 
         $conteudo->link = $data['link'];
-        $conteudo->texto = nl2br($data['texto']);
+        $conteudo->texto = $data['texto'];
         $conteudo->imagem = $data['imagem'];
-        $conteudo->data = date('Y-m-d H:i:s');
         $conteudo->user_id = $data['usuario']['id'];
+        $conteudo->data = date('Y-m-d H:i:s');
 
         $conteudo->save();
 
