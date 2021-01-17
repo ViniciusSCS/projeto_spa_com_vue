@@ -21,9 +21,13 @@
 
              <card-conteudo v-for="item in listaConteudos"
                             :key="item.id"
-                            :perfil="item.user.imagem"
+                            :id="item.id"
+                            :data="item.data"
                             :nome="item.user.name"
-                            :data="item.data">
+                            :perfil="item.user.imagem"
+                            :totalcurtidas="item.total_curtidas"
+                            :curtiuconteudo = "item.curtiu_conteudo"
+             >
 
                 <card-detalhe :url_imagem="item.imagem"
                               :texto="item.texto"
@@ -65,13 +69,16 @@ export default {
             self.$http.get(self.$urlApi + 'conteudo/listar',
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
-                    console.log(response.data.conteudos);
                     if(response.data.status){
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                     }
                 })
                 .catch(e => {
-                    console.log(e)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'ERRO, tente novamente mais tarde!',
+                    })
                 })
         } else {
             self.$router.push('/login')

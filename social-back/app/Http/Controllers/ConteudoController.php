@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conteudo;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,13 +14,23 @@ class ConteudoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function listar()
+    public function listar(Request $request)
     {
-        $conteudos =  Conteudo::with('user')
+        $conteudos = Conteudo::with('user')
             ->orderBy('data', 'desc')
             ->paginate(10);
+        $user = $request->user();
+        foreach ($conteudos as $key => $conteudo) {
+            $conteudo->total_curtidas = $conteudo->curtidas()->count();
+            $curtiu = $user->curtidas()->find($conteudo->id);
 
-        return ['status'=>true,"conteudos" => $conteudos];
+            if ($curtiu)
+                $conteudo->curtiu_conteudo = true;
+            else
+                $conteudo->curtiu_conteudo = false;
+        }
+
+        return ['status' => true, "conteudos" => $conteudos];
     }
 
 
@@ -53,14 +62,13 @@ class ConteudoController extends Controller
 
         $conteudo->save();
 
-        $conteudos =  Conteudo::with('user')
+        $conteudos = Conteudo::with('user')
             ->orderBy('data', 'desc')
             ->paginate(10);
 
-        return ['status'=>true,"conteudos" => $conteudos];
+        return ['status' => true, "conteudos" => $conteudos];
 
     }
-
 
 
     /**
@@ -69,9 +77,23 @@ class ConteudoController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function curtir($id, Request $request)
     {
-        //
+
+        $conteudo = Conteudo::find($id);
+
+        if ($conteudo) {
+            $user = $request->user();
+            $user->curtidas()->toggle($conteudo->id);
+            return [
+                'status' => true,
+                'lista' => $this->listar($request),
+                "curtidas" => $conteudo->curtidas()->count(),
+            ];
+        } else
+            return ['status' => false, "erro" => 'Conteudo não existe'];
+
+
     }
 
     /**

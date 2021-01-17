@@ -199,7 +199,7 @@ export default {
                         title: 'Oops...',
                         text: 'ERRO, tente novamente mais tarde!',
                     })
-                });
+                })
         },
     }
 }

@@ -40,7 +40,7 @@ export default {
 
             //Verifica se a publicação possui espaços.
             if (self.conteudo.texto.trim() === '') {
-                console.log('Impossível publicar conteúdo!') //Ajustar mensagens
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

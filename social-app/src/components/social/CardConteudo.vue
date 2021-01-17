@@ -21,7 +21,10 @@
             </div>
             <div class="card-action">
                 <p>
-                    <i class="material-icons">favorite_border</i>
+                    <a style="cursor: pointer" @click="curtida(id)">
+                        <i class="material-icons">{{ curtiu }}</i>{{ totalCurtidas }}
+                    </a>
+
                     &af;
                     <i class="material-icons">comment</i>
                     &af;
@@ -36,16 +39,67 @@
 
 <script>
 import Grid from "../layouts/Grid";
+
 export default {
     name: 'CardConteudo',
     components: {Grid},
     props: [
-        'perfil',
+        'id',
         'nome',
-        'data'
+        'data',
+        'perfil',
+        'totalcurtidas',
+        'curtiuconteudo',
     ],
     data() {
-        return {}
+        return {
+            totalCurtidas: this.totalcurtidas,
+            curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border',
+        }
+    },
+    methods: {
+        curtida(id) {
+            var self = this
+
+            self.$http.put(self.$urlApi + 'conteudo/curtir/' + id, {},
+                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                .then(response => {
+                    if (response.status) {
+                        self.totalCurtidas = response.data.curtidas
+                        self.$store.commit('setTimeline', response.data.lista.conteudos.data)
+                        if (self.curtiu == 'favorite_border') {
+                            self.curtiu = 'favorite'
+                        } else {
+                            self.curtiu = 'favorite_border'
+                        }
+                    } else if (response.data.status == false && response.data.validacao) {
+                        var erros = '';
+                        for (var e of Object.values(response.data.erros)) {
+                            erros += e + ' ';
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro: ' + erros,
+                        })
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro ao curtir conteúdo!',
+                        })
+                    }
+                })
+                .catch(function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'ERRO, tente novamente mais tarde!',
+                    })
+                })
+
+        }
     }
 }
 </script>
