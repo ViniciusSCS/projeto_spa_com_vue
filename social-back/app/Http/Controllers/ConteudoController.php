@@ -36,7 +36,7 @@ class ConteudoController extends Controller
 
         // validação
         $validacao = Validator::make($data, [
-            'texto' => 'required|string|max:255',
+            'texto' => 'required|string',
         ]);
 
         if ($validacao->fails()) {
@@ -46,7 +46,7 @@ class ConteudoController extends Controller
         $conteudo = new Conteudo();
 
         $conteudo->link = $data['link'];
-        $conteudo->texto = $data['texto'];
+        $conteudo->texto = nl2br($data['texto']);
         $conteudo->imagem = $data['imagem'];
         $conteudo->data = date('Y-m-d H:i:s');
         $conteudo->user_id = $data['usuario']['id'];
