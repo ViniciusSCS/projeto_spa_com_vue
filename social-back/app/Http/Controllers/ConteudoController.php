@@ -102,9 +102,24 @@ class ConteudoController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function comentarios($id)
     {
-        //
+//        $user2 = User::find(2);
+//        $conteudo = Conteudo::find(2);
+//        $user->comentarios()->create([
+//            'data' => date('Y-m-d'),
+//            'texto' => 'Sucesso',
+//            'conteudo_id' => $conteudo->id,
+//        ]);
+//
+//        $user2->comentarios()->create([
+//            'data' => date('Y-m-d'),
+//            'texto' => 'Muito Bom!',
+//            'conteudo_id' => $conteudo->id,
+//        ]);
+//
+//        return $conteudo->comentarios;
+
     }
 
     /**

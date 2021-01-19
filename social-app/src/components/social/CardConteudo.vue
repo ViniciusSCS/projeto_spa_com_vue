@@ -25,11 +25,27 @@
                         <i class="material-icons">{{ curtiu }}</i>{{ totalCurtidas }}
                     </a>
 
-                    &af;
-                    <i class="material-icons">comment</i>
-                    &af;
-                    <i class="material-icons">send</i>
+                    <a style="cursor: pointer" @click="abreComentario(id)">
+                        <i class="material-icons">comment</i>{{ 22 }}
+                    </a>
                 </p>
+
+                <p class="right-align" v-if="exibirComentarios">
+                    <input type="text" placeholder="Comentário">
+                    <button class="btn waves-effect waves-light blue"><i class="material-icons">send</i></button>
+                </p>
+                <ul class="collection" v-if="exibirComentarios">
+                    <li class="collection-item avatar">
+                        <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle">
+                        <span class="title">Yuna <small> - 09h45 19/01/2021</small></span>
+                        <p>Comentário Show!!</p>
+                    </li>
+                    <li class="collection-item avatar">
+                        <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle">
+                        <span class="title">Yuna <small> - 09h45 19/01/2021</small></span>
+                        <p>Comentário Show!!</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -53,8 +69,9 @@ export default {
     ],
     data() {
         return {
+            exibirComentarios: false,
             totalCurtidas: this.totalcurtidas,
-            curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border',
+            curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border'
         }
     },
     methods: {
@@ -99,6 +116,11 @@ export default {
                     })
                 })
 
+        },
+
+        abreComentario(id) {
+            var self = this
+            self.exibirComentarios = !self.exibirComentarios
         }
     }
 }
