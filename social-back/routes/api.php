@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Conteudo;
 use \Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ConteudoController;
@@ -26,9 +27,9 @@ Route::middleware('auth:api')->put('/perfil', [UsuarioController::class, 'perfil
 Route::middleware('auth:api')->get('/conteudo/listar', [ConteudoController::class, 'listar']);
 Route::middleware('auth:api')->put('/conteudo/curtir/{id}', [ConteudoController::class, 'curtir']);
 Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
-Route::middleware('auth:api')->post('/conteudo/comentar/{id}', [ConteudoController::class, 'comentar']);
+Route::middleware('auth:api')->put('/conteudo/comentar/{id}', [ConteudoController::class, 'comentar']);
 
-//Route::get('/testes', function () {
+Route::get('/testes', function () {
 
     /*Exemplo de adicionar Amigos*/
 
@@ -36,21 +37,4 @@ Route::middleware('auth:api')->post('/conteudo/comentar/{id}', [ConteudoControll
 //    $user->amigos()->toggle($user2->id);
 //    return $user->amigos;
 
-    /*Exemplo de adicionar Comentários*/
-
-//    $user2 = User::find(2);
-//    $conteudo = Conteudo::find(2);
-//    $user->comentarios()->create([
-//        'data' => date('Y-m-d'),
-//        'texto' => 'Sucesso',
-//        'conteudo_id' => $conteudo->id,
-//    ]);
-
-//    $user2->comentarios()->create([
-//        'data' => date('Y-m-d'),
-//        'texto' => 'Muito Bom!',
-//        'conteudo_id' => $conteudo->id,
-//    ]);
-
-//    return $conteudo->comentarios;
-//});
+});

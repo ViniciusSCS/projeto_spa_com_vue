@@ -26,24 +26,22 @@
                     </a>
 
                     <a style="cursor: pointer" @click="abreComentario(id)">
-                        <i class="material-icons">comment</i>{{ 22 }}
+                        <i class="material-icons">comment</i>{{ comentarios.length }}
                     </a>
                 </p>
 
                 <p class="right-align" v-if="exibirComentarios">
-                    <input type="text" placeholder="Comentário">
-                    <button class="btn waves-effect waves-light blue"><i class="material-icons">send</i></button>
+                    <input type="text" placeholder="Comentário" v-model="textoComentario">
+                    <button v-if="textoComentario" class="btn waves-effect waves-light blue"
+                            @click="enviarComentario(id)">
+                        <i class="material-icons">send</i>
+                    </button>
                 </p>
                 <ul class="collection" v-if="exibirComentarios">
-                    <li class="collection-item avatar">
-                        <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle">
-                        <span class="title">Yuna <small> - 09h45 19/01/2021</small></span>
-                        <p>Comentário Show!!</p>
-                    </li>
-                    <li class="collection-item avatar">
-                        <img src="https://materializecss.com/images/yuna.jpg" alt="" class="circle">
-                        <span class="title">Yuna <small> - 09h45 19/01/2021</small></span>
-                        <p>Comentário Show!!</p>
+                    <li class="collection-item avatar" v-for="item in comentarios" :key="item.id">
+                        <img :src="item.user.imagem" alt="" class="circle">
+                        <span class="title">{{ item.user.name }}<small> - {{ item.data }}</small></span>
+                        <p>{{ item.texto }}</p>
                     </li>
                 </ul>
             </div>
@@ -66,9 +64,11 @@ export default {
         'perfil',
         'totalcurtidas',
         'curtiuconteudo',
+        'comentarios',
     ],
     data() {
         return {
+            textoComentario: '',
             exibirComentarios: false,
             totalCurtidas: this.totalcurtidas,
             curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border'
@@ -121,6 +121,56 @@ export default {
         abreComentario(id) {
             var self = this
             self.exibirComentarios = !self.exibirComentarios
+        },
+
+        enviarComentario(id) {
+            var self = this
+
+            if (self.textoComentario.trim() === '') {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Impossível comentar!',
+                })
+            } else {
+                self.$http.put(self.$urlApi + 'conteudo/comentar/' + id, {texto: self.textoComentario},
+                    {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                    .then(response => {
+                        console.log(response);
+                        if (response.status) {
+
+                            self.$store.commit('setTimeline', response.data.lista.conteudos.data)
+                            self.textoComentario = ''
+
+                        } else if (response.data.status == false && response.data.validacao) {
+                            var erros = '';
+                            for (var e of Object.values(response.data.erros)) {
+                                erros += e + ' ';
+                            }
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Erro: ' + erros,
+                            })
+
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Erro ao comentar nesse conteúdo!',
+                            })
+                        }
+                    })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'ERRO, tente novamente mais tarde!',
+                        })
+                    })
+
+            }
         }
     }
 }

@@ -25,6 +25,7 @@
                             :data="item.data"
                             :nome="item.user.name"
                             :perfil="item.user.imagem"
+                            :comentarios="item.comentarios"
                             :totalcurtidas="item.total_curtidas"
                             :curtiuconteudo = "item.curtiu_conteudo"
              >

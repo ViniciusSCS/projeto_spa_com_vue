@@ -22,6 +22,7 @@ class ConteudoController extends Controller
         $user = $request->user();
         foreach ($conteudos as $key => $conteudo) {
             $conteudo->total_curtidas = $conteudo->curtidas()->count();
+            $conteudo->comentarios = $conteudo->comentarios()->with('user')->get();
             $curtiu = $user->curtidas()->find($conteudo->id);
 
             if ($curtiu)
@@ -102,23 +103,26 @@ class ConteudoController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function comentarios($id)
+    public function comentar($id, Request $request)
     {
-//        $user2 = User::find(2);
-//        $conteudo = Conteudo::find(2);
-//        $user->comentarios()->create([
-//            'data' => date('Y-m-d'),
-//            'texto' => 'Sucesso',
-//            'conteudo_id' => $conteudo->id,
-//        ]);
-//
-//        $user2->comentarios()->create([
-//            'data' => date('Y-m-d'),
-//            'texto' => 'Muito Bom!',
-//            'conteudo_id' => $conteudo->id,
-//        ]);
-//
-//        return $conteudo->comentarios;
+        $conteudo = Conteudo::find($id);
+        if ($conteudo){
+            $user = $request->user();
+            $user->comentarios()->create([
+                'data' => date('Y-m-d'),
+                'texto' => $request->texto,
+                'conteudo_id' => $conteudo->id,
+            ]);
+            return [
+                'status' => true,
+                'lista' => $this->listar($request),
+            ];
+
+            return $conteudo->comentarios;
+
+        }else
+            return ['status' => false, "erro" => 'Conteudo não existe'];
+
 
     }
 

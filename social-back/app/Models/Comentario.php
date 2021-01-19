@@ -28,5 +28,12 @@ class Comentario extends Model
         return $this->belongsTo(Conteudo::class);
     }
 
+    public function getDataAttribute($value)
+    {
+        $data = date('H:i d/m/Y', strtotime($value));
+        $ajusteData =  str_replace(':', 'h', $data);
+        return $ajusteData;
+    }
+
 
 }

@@ -32,4 +32,11 @@ class Conteudo extends Model
     {
         return $this->belongsToMany(User::class, 'curtidas', 'conteudo_id', 'user_id');
     }
+
+    public function getDataAttribute($value)
+    {
+        $data = date('H:i d/m/Y', strtotime($value));
+        $ajusteData =  str_replace(':', 'h', $data);
+        return $ajusteData;
+    }
 }
