@@ -10,7 +10,7 @@
 
         <grid v-if="conteudo.texto" tamanho="3 offset-s9">
             <button class="btn waves-effect waves-light left right-align" @click="publicar()">
-                <i class="material-icons left">send</i> PUBLICAR
+                <i class="material-icons left">send</i> Publicar
             </button>
         </grid>
     </div>

@@ -2,8 +2,7 @@
     <span>
         <header>
             <nav-bar cor="green darken-1"
-                     logo="Sistema SPA"
-                     url="http://engenheirocompvinicius.com.br">
+                     url="#">
                 <li><router-link to="/">HOME</router-link></li>
                 <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">LOGIN</router-link></li>
                 <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/cadastro">CADASTRO</router-link></li>
