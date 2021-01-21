@@ -15,31 +15,39 @@ Vue.prototype.$urlApi = 'http://localhost:8000/api/'
 
 var store = {
     state: {
+        timeline: [],
         titulo: 'Sistema SPA - Rede Social',
         usuario: sessionStorage.getItem('usuario') ?
-            JSON.parse(sessionStorage.getItem('usuario')) : null,
-        timeline: []
+            JSON.parse(sessionStorage.getItem('usuario')) : null
     },
     getters: {
         getUsuario: state => {
             return state.usuario
         },
+
         getToken: state => {
             return state.usuario.token
         },
         getTimeline: state => {
             return state.timeline
         },
+
         getTitulo: state => {
             return state.titulo
         },
     },
     mutations: {
-        setUsuario(state, n){
+        setUsuario(state, n) {
             state.usuario = n
         },
-        setTimeline(state, n){
+
+        setTimeline(state, n) {
             state.timeline = n
+        },
+
+        setPaginacaoTimeline(state, lista) {
+            for (var item of lista)
+                state.timeline.push(item)
         },
     },
 }

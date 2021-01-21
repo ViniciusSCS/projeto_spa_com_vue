@@ -37,6 +37,7 @@
                 />
 
             </card-conteudo>
+            <button @click="carregaPagina()" class="btn blue">Ver mais...</button>
         </span>
     </site>
 </template>
@@ -56,9 +57,37 @@ export default {
           return this.$store.getters.getTimeline
       }
     },
+    methods:{
+        carregaPagina(){
+            var self = this
+            console.log('OK')
+
+            if(!self.urlProximaPagina){
+                return
+            }
+
+            self.$http.get(self.urlProximaPagina,
+                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                .then(function (response) {
+                    if(response.data.status){
+                        self.$store.commit('setPaginacaoTimeline', response.data.conteudos.data)
+                        self.urlProximaPagina = response.data.conteudos.next_page_url
+                    }
+                })
+                .catch(e => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'ERRO, tente novamente mais tarde!',
+                    })
+                })
+        },
+    },
     data() {
         return {
             usuario: false,
+            urlProximaPagina: null,
+
         }
     },
     created() {
@@ -72,6 +101,7 @@ export default {
                 .then(function (response) {
                     if(response.data.status){
                         self.$store.commit('setTimeline', response.data.conteudos.data)
+                        self.urlProximaPagina = response.data.conteudos.next_page_url
                     }
                 })
                 .catch(e => {

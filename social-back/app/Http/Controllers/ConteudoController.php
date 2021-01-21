@@ -18,7 +18,7 @@ class ConteudoController extends Controller
     {
         $conteudos = Conteudo::with('user')
             ->orderBy('data', 'desc')
-            ->paginate(10);
+            ->paginate(5);
         $user = $request->user();
         foreach ($conteudos as $key => $conteudo) {
             $conteudo->total_curtidas = $conteudo->curtidas()->count();
@@ -65,7 +65,7 @@ class ConteudoController extends Controller
 
         $conteudos = Conteudo::with('user')
             ->orderBy('data', 'desc')
-            ->paginate(10);
+            ->paginate(5);
 
         return ['status' => true, "conteudos" => $conteudos];
 
