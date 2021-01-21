@@ -37,7 +37,7 @@
                 />
 
             </card-conteudo>
-            <button @click="carregaPagina()" class="btn blue">Ver mais...</button>
+            <button v-if="urlProximaPagina" @click="carregaPagina()" class="btn blue">Ver mais...</button>
         </span>
     </site>
 </template>
@@ -87,7 +87,6 @@ export default {
         return {
             usuario: false,
             urlProximaPagina: null,
-
         }
     },
     created() {
