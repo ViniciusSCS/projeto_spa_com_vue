@@ -22,7 +22,7 @@ class ConteudoController extends Controller
         $user = $request->user();
         foreach ($conteudos as $key => $conteudo) {
             $conteudo->total_curtidas = $conteudo->curtidas()->count();
-            $conteudo->comentarios = $conteudo->comentarios()->with('user')->get();
+            $conteudo->comentarios = $conteudo->comentarios()->with('user')->orderBy('data', 'desc')->get();
             $curtiu = $user->curtidas()->find($conteudo->id);
 
             if ($curtiu)
