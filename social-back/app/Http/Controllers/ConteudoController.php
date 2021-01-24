@@ -109,7 +109,7 @@ class ConteudoController extends Controller
         if ($conteudo){
             $user = $request->user();
             $user->comentarios()->create([
-                'data' => date('Y-m-d'),
+                'data' => date('Y-m-d H:i:s'),
                 'texto' => $request->texto,
                 'conteudo_id' => $conteudo->id,
             ]);
