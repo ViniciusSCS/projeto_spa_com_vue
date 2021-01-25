@@ -137,7 +137,6 @@ export default {
                 self.$http.put(self.$urlApi + 'conteudo/comentar/' + id, {texto: self.textoComentario},
                     {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                     .then(response => {
-                        console.log(response);
                         if (response.status) {
 
                             self.$store.commit('setTimeline', response.data.lista.conteudos.data)

@@ -60,7 +60,6 @@ export default {
     methods:{
         carregaPagina(){
             var self = this
-            console.log('OK')
 
             if(!self.urlProximaPagina){
                 return
