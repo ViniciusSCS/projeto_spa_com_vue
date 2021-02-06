@@ -2,8 +2,7 @@
     <span>
         <header>
                 <nav-bar cor="green darken-1"
-                         logo="Sistema SPA"
-                         url="http://engenheirocompvinicius.com.br">
+                         url="#">
                     <li v-if="usuario"><router-link to="/perfil">{{ usuario.name }}</router-link></li>
                     <li v-if="usuario"><a v-on:click="sair()">Sair</a></li>
                 </nav-bar>
