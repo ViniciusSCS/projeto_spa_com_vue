@@ -11,7 +11,6 @@
             </p>
             <p>
                 <a :href="link">{{ link }}</a>
-
             </p>
         </div>
     </span>

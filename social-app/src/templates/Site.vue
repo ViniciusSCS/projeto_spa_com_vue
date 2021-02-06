@@ -41,7 +41,8 @@
             <ul>
                   <li><router-link class="grey-text text-lighten-3" to="/">Home</router-link></li>
                   <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/login">Login</router-link></li>
-                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3" to="/cadastro">Cadastro</router-link></li>
+                  <li v-if="!usuario"><router-link class="grey-text text-lighten-3"
+                                                   to="/cadastro">Cadastro</router-link></li>
             </ul>
         </rodape>
 
@@ -68,12 +69,12 @@ export default {
         var aux = self.$store.getters.getUsuario
         if (aux) {
             self.usuario = self.$store.getters.getUsuario
-        }else{
+        } else {
             self.$router.push('/login')
         }
     },
-    methods:{
-        sair(){
+    methods: {
+        sair() {
             var self = this
 
             self.$store.commit('setUsuario', null)
