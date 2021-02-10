@@ -27,7 +27,7 @@
                             :perfil="item.user.imagem"
                             :comentarios="item.comentarios"
                             :totalcurtidas="item.total_curtidas"
-                            :curtiuconteudo = "item.curtiu_conteudo"
+                            :curtiuconteudo="item.curtiu_conteudo"
              >
 
                 <card-detalhe :url_imagem="item.imagem"
@@ -37,7 +37,7 @@
                 />
 
             </card-conteudo>
-            <button v-if="urlProximaPagina" @click="carregaPagina()" class="btn blue">Ver mais...</button>
+            <div v-scroll="handleScroll" />
         </span>
     </site>
 </template>
@@ -52,25 +52,37 @@ import PublicarConteudo from "@/components/social/PublicarConteudo";
 export default {
     name: 'Home',
     components: {Site, PublicarConteudo, Grid, CardDetalhe, CardConteudo},
-    computed:{
-      listaConteudos(){
-          return this.$store.getters.getTimeline
-      }
+    computed: {
+        listaConteudos() {
+            return this.$store.getters.getTimeline
+        }
     },
-    methods:{
-        carregaPagina(){
+    methods: {
+        handleScroll() {
+            var self = this
+            if(self.controleScroll){
+                return;
+            }
+            if (window.scrollY >= document.body.clientHeight - 846) {
+                self.controleScroll = true
+                self.carregaPagina()
+            }
+        },
+
+        carregaPagina() {
             var self = this
 
-            if(!self.urlProximaPagina){
+            if (!self.urlProximaPagina) {
                 return
             }
 
             self.$http.get(self.urlProximaPagina,
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
-                    if(response.data.status){
+                    if (response.data.status) {
                         self.$store.commit('setPaginacaoTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
+                        self.controleScroll = false
                     }
                 })
                 .catch(e => {
@@ -86,6 +98,7 @@ export default {
         return {
             usuario: false,
             urlProximaPagina: null,
+            controleScroll: false,
         }
     },
     created() {
@@ -97,7 +110,7 @@ export default {
             self.$http.get(self.$urlApi + 'conteudo/listar',
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
-                    if(response.data.status){
+                    if (response.data.status) {
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
                     }

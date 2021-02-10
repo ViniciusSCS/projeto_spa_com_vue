@@ -26,7 +26,7 @@
                     </a>
 
                     <a style="cursor: pointer" @click="abreComentario(id)">
-                        <i class="material-icons">comment</i>{{ comentarios.length }}
+                        <i class="material-icons">comment</i>{{ listaComentarios.length }}
                     </a>
                 </p>
 
@@ -69,7 +69,8 @@ export default {
             textoComentario: '',
             exibirComentarios: false,
             totalCurtidas: this.totalcurtidas,
-            curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border'
+            listaComentarios: this.comentarios || [],
+            curtiu: this.curtiuconteudo ? 'favorite' : 'favorite_border',
         }
     },
     methods: {
