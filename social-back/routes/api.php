@@ -29,6 +29,8 @@ Route::middleware('auth:api')->put('/conteudo/curtir/{id}', [ConteudoController:
 Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 Route::middleware('auth:api')->put('/conteudo/comentar/{id}', [ConteudoController::class, 'comentar']);
 
+Route::middleware('auth:api')->get('/conteudo/pagina/listar/{id}', [ConteudoController::class, 'pagina']);
+
 Route::get('/testes', function () {
 
     /*Exemplo de adicionar Amigos*/

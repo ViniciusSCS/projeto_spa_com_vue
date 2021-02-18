@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conteudo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -144,9 +145,30 @@ class ConteudoController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function pagina(Request $request, $id)
     {
-        //
+        $donoDaPagina = User::find($id);
+
+        if($donoDaPagina){
+            $conteudos = $donoDaPagina->conteudos()
+                ->with('user')
+                ->orderBy('data', 'desc')
+                ->paginate(5);
+            $user = $request->user();
+            foreach ($conteudos as $key => $conteudo) {
+                $conteudo->total_curtidas = $conteudo->curtidas()->count();
+                $conteudo->comentarios = $conteudo->comentarios()->with('user')->orderBy('data', 'desc')->get();
+                $curtiu = $user->curtidas()->find($conteudo->id);
+
+                if ($curtiu)
+                    $conteudo->curtiu_conteudo = true;
+                else
+                    $conteudo->curtiu_conteudo = false;
+            }
+
+            return ['status' => true, "conteudos" => $conteudos];
+        } else
+            return ['status' => false, 'erro' => 'Usuário não encontrado'];
     }
 
     /**
