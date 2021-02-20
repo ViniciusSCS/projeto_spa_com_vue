@@ -2,13 +2,13 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img :src="usuario.imagem" alt=""
+                <img :src="donoPagina.imagem" alt=""
                      class="circle responsive-img">
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
-                    <h5>{{ usuario.name }}</h5>
-                    {{ usuario.description_user || '' }}
+                    <h5>{{ donoPagina.name }}</h5>
+                    {{ donoPagina.description_user || '' }}
                 </span>
             </grid>
             <span>
@@ -94,13 +94,20 @@ export default {
                 })
         },
     },
+
     data() {
         return {
             usuario: false,
             urlProximaPagina: null,
             controleScroll: false,
+            donoPagina:
+                {
+                    imagem: '',
+                    name: ''
+                },
         }
     },
+
     created() {
         var self = this
 
@@ -110,9 +117,11 @@ export default {
             self.$http.get(self.$urlApi + 'conteudo/pagina/listar/'+ self.$route.params.id,
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
+                    console.log(response);
                     if (response.data.status) {
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
+                        self.donoPagina = response.data.dono
                     }
                 })
                 .catch(e => {

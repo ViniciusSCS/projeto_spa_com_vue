@@ -166,7 +166,7 @@ class ConteudoController extends Controller
                     $conteudo->curtiu_conteudo = false;
             }
 
-            return ['status' => true, "conteudos" => $conteudos];
+            return ['status' => true, "conteudos" => $conteudos, 'dono' => $donoDaPagina];
         } else
             return ['status' => false, 'erro' => 'Usuário não encontrado'];
     }
