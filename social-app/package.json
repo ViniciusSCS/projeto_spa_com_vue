@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "slug": "^4.0.2",
     "sweetalert2": "^10.12.6",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

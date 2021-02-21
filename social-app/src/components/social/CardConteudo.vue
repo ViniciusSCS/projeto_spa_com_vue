@@ -11,7 +11,7 @@
                     </grid>
                     <grid tamanho="11">
                         <span class="black-text">
-                            <router-link :to="'/pagina/'+usuario">
+                            <router-link :to="'/pagina/' + usuario + '/' + $slug(nome, '_')">
                                 <strong>{{ nome }}</strong>
                             </router-link>
                              - <small>{{ data }}</small>

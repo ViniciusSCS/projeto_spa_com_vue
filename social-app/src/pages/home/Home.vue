@@ -2,7 +2,7 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <router-link :to="'/pagina/'+usuario.id">
+                <router-link :to="'/pagina/' + usuario.id + '/' + $slug(usuario.name, '_')">
                     <img :src="usuario.imagem" alt=""
                          class="circle responsive-img">
                 </router-link>

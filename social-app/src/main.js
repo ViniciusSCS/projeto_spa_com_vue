@@ -3,15 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import Vuex from 'vuex'
+import slug from 'slug'
 import axios from 'axios'
 import router from './router'
 
 Vue.use(Vuex)
-
 Vue.config.productionTip = false
 
 Vue.prototype.$http = axios
 Vue.prototype.$urlApi = 'http://localhost:8000/api/'
+
+Vue.prototype.$slug = slug
 
 var store = {
     state: {
