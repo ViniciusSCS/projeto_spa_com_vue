@@ -26,6 +26,7 @@
                             :id="item.id"
                             :data="item.data"
                             :nome="item.user.name"
+                            :usuario="item.user.id"
                             :perfil="item.user.imagem"
                             :comentarios="item.comentarios"
                             :totalcurtidas="item.total_curtidas"
@@ -119,7 +120,6 @@ export default {
             self.$http.get(self.$urlApi + 'conteudo/pagina/listar/' + self.$route.params.id,
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
-                    console.log(response);
                     if (response.data.status) {
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
