@@ -2,8 +2,10 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img :src="usuario.imagem" alt=""
-                     class="circle responsive-img">
+                <router-link :to="'/pagina/'+usuario.id">
+                    <img :src="usuario.imagem" alt=""
+                         class="circle responsive-img">
+                </router-link>
             </grid>
             <grid tamanho="8">
                 <span class="black-text">

@@ -11,7 +11,10 @@
                     </grid>
                     <grid tamanho="11">
                         <span class="black-text">
-                                <strong>{{ nome }}</strong> - <small>{{ data }}</small>
+                            <router-link :to="'/pagina/'+usuario">
+                                <strong>{{ nome }}</strong>
+                            </router-link>
+                             - <small>{{ data }}</small>
                         </span>
                     </grid>
                 </div>
@@ -40,7 +43,9 @@
                 <ul class="collection" v-if="exibirComentarios">
                     <li class="collection-item avatar" v-for="item in comentarios" :key="item.id">
                         <img :src="item.user.imagem" alt="" class="circle">
-                        <span class="title">{{ item.user.name }}<small> - {{ item.data }}</small></span>
+                        <span class="title">
+                            {{ item.user.name }}<small> - {{ item.data }}</small>
+                        </span>
                         <p>{{ item.texto }}</p>
                     </li>
                 </ul>
@@ -60,6 +65,7 @@ export default {
         'nome',
         'data',
         'perfil',
+        'usuario',
         'totalcurtidas',
         'curtiuconteudo',
         'comentarios',

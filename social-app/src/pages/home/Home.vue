@@ -2,8 +2,10 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img :src="usuario.imagem" alt=""
-                     class="circle responsive-img">
+                <router-link :to="'/pagina/'+usuario.id">
+                    <img :src="usuario.imagem" alt=""
+                         class="circle responsive-img">
+                </router-link>
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
@@ -24,6 +26,7 @@
                             :id="item.id"
                             :data="item.data"
                             :nome="item.user.name"
+                            :usuario="item.user.id"
                             :perfil="item.user.imagem"
                             :comentarios="item.comentarios"
                             :totalcurtidas="item.total_curtidas"
@@ -37,7 +40,7 @@
                 />
 
             </card-conteudo>
-            <div v-scroll="handleScroll" />
+            <div v-scroll="handleScroll"/>
         </span>
     </site>
 </template>
@@ -60,7 +63,7 @@ export default {
     methods: {
         handleScroll() {
             var self = this
-            if(self.controleScroll){
+            if (self.controleScroll) {
                 return;
             }
             if (window.scrollY >= document.body.clientHeight - 846) {

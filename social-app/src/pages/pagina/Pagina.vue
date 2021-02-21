@@ -2,8 +2,10 @@
     <site>
         <span slot="menuEsquerdo">
             <grid tamanho="4">
-                <img :src="donoPagina.imagem" alt=""
-                     class="circle responsive-img">
+                <router-link :to="'/pagina/' + usuario.id">
+                    <img :src="donoPagina.imagem" alt=""
+                         class="circle responsive-img">
+                </router-link>
             </grid>
             <grid tamanho="8">
                 <span class="black-text">
@@ -37,7 +39,7 @@
                 />
 
             </card-conteudo>
-            <div v-scroll="handleScroll" />
+            <div v-scroll="handleScroll"/>
         </span>
     </site>
 </template>
@@ -60,7 +62,7 @@ export default {
     methods: {
         handleScroll() {
             var self = this
-            if(self.controleScroll){
+            if (self.controleScroll) {
                 return;
             }
             if (window.scrollY >= document.body.clientHeight - 846) {
@@ -114,7 +116,7 @@ export default {
         var aux = self.$store.getters.getUsuario
         if (aux) {
             self.usuario = self.$store.getters.getUsuario
-            self.$http.get(self.$urlApi + 'conteudo/pagina/listar/'+ self.$route.params.id,
+            self.$http.get(self.$urlApi + 'conteudo/pagina/listar/' + self.$route.params.id,
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(function (response) {
                     console.log(response);
