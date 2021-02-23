@@ -63,10 +63,12 @@ export default {
     methods: {
         handleScroll() {
             var self = this
+            var tamanhoTela = document.body.clientHeight - window.scrollY
+
             if (self.controleScroll) {
                 return;
             }
-            if (window.scrollY >= document.body.clientHeight - 846) {
+            if (window.scrollY >= tamanhoTela) {
                 self.controleScroll = true
                 self.carregaPagina()
             }

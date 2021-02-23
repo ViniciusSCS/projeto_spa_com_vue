@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conteudo;
 use App\Models\User;
+use App\Models\Conteudo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -128,17 +128,6 @@ class ConteudoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -166,19 +155,12 @@ class ConteudoController extends Controller
                     $conteudo->curtiu_conteudo = false;
             }
 
-            return ['status' => true, "conteudos" => $conteudos, 'dono' => $donoDaPagina];
+            return [
+                'status' => true,
+                "conteudos" => $conteudos,
+                'dono' => $donoDaPagina
+            ];
         } else
             return ['status' => false, 'erro' => 'Usuário não encontrado'];
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
