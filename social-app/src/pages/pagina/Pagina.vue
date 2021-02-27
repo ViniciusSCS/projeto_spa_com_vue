@@ -11,6 +11,7 @@
                 <span class="black-text">
                     <h5>{{ donoPagina.name }}</h5>
                     {{ donoPagina.description_user || '' }}
+                    <button @click="add_amigo(donoPagina.id)" class="btn">Seguir</button>
                 </span>
             </grid>
             <span>
@@ -70,6 +71,10 @@ export default {
                 self.controleScroll = true
                 self.carregaPagina()
             }
+        },
+
+        add_amigo(id) {
+            console.log("ADICIONA AMIGO", id);
         },
 
         carregaPagina() {

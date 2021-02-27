@@ -101,7 +101,10 @@ export default {
     },
     data() {
         return {
-            usuario: false,
+            usuario: {
+                imagem: '',
+                name: ''
+            },
             urlProximaPagina: null,
             controleScroll: false,
         }
