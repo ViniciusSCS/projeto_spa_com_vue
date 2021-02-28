@@ -8,6 +8,15 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class UsuarioController
+ * @package App\Http\Controllers
+ *
+ * @author Vinícius Sarmento
+ * @link https://github.com/ViniciusSCS
+ * @date 2021-02-27 17:57:10
+ *
+ */
 class UsuarioController extends Controller
 {
     /**
@@ -205,7 +214,6 @@ class UsuarioController extends Controller
 
         $user->save();
 
-//        $user->imagem = asset($user->imagem);
         $user->token = $user->createToken($user->email)->accessToken;
         return ['status' => true, "usuario" => $user];
     }
@@ -222,36 +230,19 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
-    public function edit($id)
+    public function seguir(Request $request)
     {
-        //
-    }
+        $user = $request->user();
+        $amigo = User::find($request->id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($amigo){
+            $user->amigos()->toggle($amigo->id);
+            return ['status' => true, "amigos" => $user->amigos];
+        }else{
+            return ['status' => false, 'erros' => 'Esse usuário não existe'];
+        }
     }
 }

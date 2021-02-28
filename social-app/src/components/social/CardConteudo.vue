@@ -86,7 +86,7 @@ export default {
             self.$http.put(self.$urlApi + 'conteudo/curtir/' + id, {},
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(response => {
-                    if (response.status) {
+                    if (response.data.status) {
                         self.totalCurtidas = response.data.curtidas
                         self.$store.commit('setTimeline', response.data.lista.conteudos.data)
                         if (self.curtiu == 'favorite_border') {

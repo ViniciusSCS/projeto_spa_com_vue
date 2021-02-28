@@ -31,12 +31,10 @@ Route::middleware('auth:api')->put('/conteudo/comentar/{id}', [ConteudoControlle
 
 Route::middleware('auth:api')->get('/conteudo/pagina/listar/{id}', [ConteudoController::class, 'pagina']);
 
+
+Route::middleware('auth:api')->post('/usuario/add_amigo', [UsuarioController::class, 'seguir']);
+
+
 Route::get('/testes', function () {
-
-    /*Exemplo de adicionar Amigos*/
-
-//    $user2 = User::find(2);
-//    $user->amigos()->toggle($user2->id);
-//    return $user->amigos;
 
 });

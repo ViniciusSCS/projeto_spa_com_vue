@@ -64,17 +64,57 @@ export default {
     methods: {
         handleScroll() {
             var self = this
-            if (self.controleScroll) {
+            var tamanhoTela = document.body.clientHeight - window.scrollY
+
+            if (self.controleScroll ) {
                 return;
             }
-            if (window.scrollY >= document.body.clientHeight - 846) {
+            if (window.scrollY >= tamanhoTela) {
                 self.controleScroll = true
                 self.carregaPagina()
             }
         },
 
         add_amigo(id) {
-            console.log("ADICIONA AMIGO", id);
+            var self = this
+            self.$http.post(self.$urlApi + 'usuario/add_amigo/', {id: id},
+                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                .then(response => {
+                    if (response.data.status) {
+                        console.log("ADICIONA AMIGO", response.data.amigos, id);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Você está seguindo ...... com sucesso!!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else if (response.data.status == false && response.data.validacao) {
+                        var erros = '';
+                        for (var e of Object.values(response.data.erros)) {
+                            erros += e + ' ';
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro: ' + erros,
+                        })
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Erro ao seguir usuário!',
+                        })
+                    }
+                })
+                .catch(function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'ERRO, tente novamente mais tarde!',
+                    })
+                })
         },
 
         carregaPagina() {
