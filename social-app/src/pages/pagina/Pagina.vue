@@ -23,7 +23,9 @@
             <h2>Seguindo</h2>
             <li v-if="!amigos.length">Nenhum amigo</li>
             <li v-for="item in amigos" :key="item.id">
-                {{ item.name }}
+                <router-link :to="'/pagina/' + item.id + '/' + $slug(item.name, '_')">
+                    {{item.name}}
+                </router-link>
             </li>
         </span>
 
