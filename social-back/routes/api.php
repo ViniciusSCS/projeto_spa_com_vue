@@ -33,8 +33,3 @@ Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::
 Route::middleware('auth:api')->put('/conteudo/comentar/{id}', [ConteudoController::class, 'comentar']);
 Route::middleware('auth:api')->get('/conteudo/pagina/listar/{id}', [ConteudoController::class, 'pagina']);
 
-
-
-Route::get('/testes', function () {
-
-});
