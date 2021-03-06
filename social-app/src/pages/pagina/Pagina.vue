@@ -11,12 +11,20 @@
                 <span class="black-text">
                     <h5>{{ donoPagina.name }}</h5>
                     {{ donoPagina.description_user || '' }}
-                    <button @click="add_amigo(donoPagina.id)" class="btn">Seguir</button>
+                    <button v-if="btnSeguir" @click="add_amigo(donoPagina.id)" class="btn">{{textBtnSeguir}}</button>
                 </span>
             </grid>
             <span>
                 <router-link to="/perfil" style="font-size: small; text-align: center">Alterar Perfil</router-link>
             </span>
+        </span>
+
+        <span slot="menuEsquerdoAmigos">
+            <h2>Seguindo</h2>
+            <li v-if="!amigos.length">Nenhum amigo</li>
+            <li v-for="item in amigos" :key="item.id">
+                {{ item.name }}
+            </li>
         </span>
 
         <span slot="principal">
@@ -62,11 +70,26 @@ export default {
         }
     },
     methods: {
+
+        isAmigo(){
+            var self = this
+
+            self.textBtnSeguir
+
+            for(let amigo of self.amigosLogado){
+                if(amigo.id == self.donoPagina.id) {
+                    self.textBtnSeguir = "Deixar de Seguir"
+                    return
+                }
+            }
+            self.textBtnSeguir
+        },
+
         handleScroll() {
             var self = this
             var tamanhoTela = document.body.clientHeight - window.scrollY
 
-            if (self.controleScroll ) {
+            if (self.controleScroll) {
                 return;
             }
             if (window.scrollY >= tamanhoTela) {
@@ -81,7 +104,6 @@ export default {
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(response => {
                     if (response.data.status) {
-                        console.log("ADICIONA AMIGO", response.data.amigos, id);
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -89,6 +111,8 @@ export default {
                             showConfirmButton: false,
                             timer: 1500
                         })
+                        self.amigosLogado = response.data.amigos
+                        self.isAmigo()
                     } else if (response.data.status == false && response.data.validacao) {
                         var erros = '';
                         for (var e of Object.values(response.data.erros)) {
@@ -145,9 +169,15 @@ export default {
 
     data() {
         return {
+            amigos: [],
+            amigosLogado: [],
+
             usuario: false,
-            urlProximaPagina: null,
+            btnSeguir: false,
+            textBtnSeguir: 'Seguir',
             controleScroll: false,
+            urlProximaPagina: null,
+
             donoPagina:
                 {
                     imagem: '',
@@ -169,6 +199,27 @@ export default {
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
                         self.donoPagina = response.data.dono
+                        if (self.donoPagina.id != self.usuario.id)
+                            self.btnSeguir = true
+
+                        self.$http.get(self.$urlApi + 'usuario/amigos/' + self.donoPagina.id,
+                            {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                            .then(function (response) {
+                                if (response.data.status) {
+                                    self.amigos = response.data.amigos
+                                    self.amigosLogado = response.data.amigosLogado
+                                    self.isAmigo();
+                                } else {
+                                    sweetAlert(response.data.erro)
+                                }
+                            })
+                            .catch(e => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'ERRO, tente novamente mais tarde!',
+                                })
+                            })
                     }
                 })
                 .catch(e => {

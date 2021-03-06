@@ -20,9 +20,8 @@ use Illuminate\Support\Facades\Validator;
 class UsuarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array|false[]
      */
     public function login(Request $request)
     {
@@ -49,9 +48,8 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
     public function cadastro(Request $request)
     {
@@ -82,10 +80,8 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
     public function perfil(Request $request)
     {
@@ -219,10 +215,8 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
      */
     public function usuario(Request $request)
     {
@@ -238,9 +232,37 @@ class UsuarioController extends Controller
         $user = $request->user();
         $amigo = User::find($request->id);
 
-        if($amigo){
+        if($amigo && ($user->id != $amigo->id)){
             $user->amigos()->toggle($amigo->id);
             return ['status' => true, "amigos" => $user->amigos];
+        }else{
+            return ['status' => false, 'erros' => 'Esse usuário não existe'];
+        }
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function listar(Request $request)
+    {
+        $user = $request->user();
+        if($user){
+            return ['status' => true, "amigos" => $user->amigos];
+        }else{
+            return ['status' => false, 'erros' => 'Esse usuário não existe'];
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     */
+    public function amigos(Request $request, $id)
+    {
+        $user = User::find($id);
+        $userLogado = $request->user();
+        if($user){
+            return ['status' => true, "amigos" => $user->amigos, "amigosLogado" => $userLogado->amigos];
         }else{
             return ['status' => false, 'erros' => 'Esse usuário não existe'];
         }

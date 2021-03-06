@@ -18,6 +18,14 @@
             </span>
         </span>
 
+        <span slot="menuEsquerdoAmigos">
+            <h2>Seguindo</h2>
+            <li v-if="!amigos.length">Nenhum amigo</li>
+            <li v-for="item in amigos" :key="item.id">
+                {{item.name}}
+            </li>
+        </span>
+
         <span slot="principal">
             <publicar-conteudo/>
 
@@ -99,16 +107,19 @@ export default {
                 })
         },
     },
+
     data() {
         return {
             usuario: {
                 imagem: '',
                 name: ''
             },
+            amigos: [],
             urlProximaPagina: null,
             controleScroll: false,
         }
     },
+
     created() {
         var self = this
 
@@ -121,6 +132,23 @@ export default {
                     if (response.data.status) {
                         self.$store.commit('setTimeline', response.data.conteudos.data)
                         self.urlProximaPagina = response.data.conteudos.next_page_url
+
+                        self.$http.get(self.$urlApi + 'usuario/amigos',
+                            {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                            .then(function (response) {
+                                if (response.data.status) {
+                                    self.amigos = response.data.amigos
+                                }else{
+                                    sweetAlert(response.data.erro)
+                                }
+                            })
+                            .catch(e => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'ERRO, tente novamente mais tarde!',
+                                })
+                            })
                     }
                 })
                 .catch(e => {
