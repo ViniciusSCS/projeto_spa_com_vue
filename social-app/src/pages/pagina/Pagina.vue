@@ -71,6 +71,9 @@ export default {
             return this.$store.getters.getTimeline
         }
     },
+    watch:{
+      '$route': 'atualizaPagina',
+    },
     methods: {
 
         isAmigo(){
@@ -167,6 +170,56 @@ export default {
                     })
                 })
         },
+
+        atualizaPagina(){
+            var self = this
+
+            var aux = self.$store.getters.getUsuario
+            if (aux) {
+                self.usuario = self.$store.getters.getUsuario
+                self.$http.get(self.$urlApi + 'conteudo/pagina/listar/' + self.$route.params.id,
+                    {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                    .then(function (response) {
+                        if (response.data.status) {
+                            self.$store.commit('setTimeline', response.data.conteudos.data)
+                            self.urlProximaPagina = response.data.conteudos.next_page_url
+                            self.donoPagina = response.data.dono
+                            if (self.donoPagina.id != self.usuario.id)
+                                self.btnSeguir = true
+                            else
+                                self.btnSeguir = false
+
+                            self.$http.get(self.$urlApi + 'usuario/amigos/' + self.donoPagina.id,
+                                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+                                .then(function (response) {
+                                    if (response.data.status) {
+                                        self.amigos = response.data.amigos
+                                        self.amigosLogado = response.data.amigosLogado
+                                        self.isAmigo();
+                                    } else {
+                                        sweetAlert(response.data.erro)
+                                    }
+                                })
+                                .catch(e => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'ERRO, tente novamente mais tarde!',
+                                    })
+                                })
+                        }
+                    })
+                    .catch(e => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'ERRO, tente novamente mais tarde!',
+                        })
+                    })
+            } else {
+                self.$router.push('/login')
+            }
+        }
     },
 
     data() {
@@ -191,49 +244,7 @@ export default {
     created() {
         var self = this
 
-        var aux = self.$store.getters.getUsuario
-        if (aux) {
-            self.usuario = self.$store.getters.getUsuario
-            self.$http.get(self.$urlApi + 'conteudo/pagina/listar/' + self.$route.params.id,
-                {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
-                .then(function (response) {
-                    if (response.data.status) {
-                        self.$store.commit('setTimeline', response.data.conteudos.data)
-                        self.urlProximaPagina = response.data.conteudos.next_page_url
-                        self.donoPagina = response.data.dono
-                        if (self.donoPagina.id != self.usuario.id)
-                            self.btnSeguir = true
-
-                        self.$http.get(self.$urlApi + 'usuario/amigos/' + self.donoPagina.id,
-                            {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
-                            .then(function (response) {
-                                if (response.data.status) {
-                                    self.amigos = response.data.amigos
-                                    self.amigosLogado = response.data.amigosLogado
-                                    self.isAmigo();
-                                } else {
-                                    sweetAlert(response.data.erro)
-                                }
-                            })
-                            .catch(e => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'ERRO, tente novamente mais tarde!',
-                                })
-                            })
-                    }
-                })
-                .catch(e => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'ERRO, tente novamente mais tarde!',
-                    })
-                })
-        } else {
-            self.$router.push('/login')
-        }
+        self.atualizaPagina()
     },
 }
 </script>

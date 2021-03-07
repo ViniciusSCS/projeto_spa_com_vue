@@ -101,6 +101,31 @@ class ConteudoController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function paginaCurtir($id, Request $request)
+    {
+
+        $conteudo = Conteudo::find($id);
+
+        if ($conteudo) {
+            $user = $request->user();
+            $user->curtidas()->toggle($conteudo->id);
+            return [
+                'status' => true,
+                'lista' => $this->pagina($request, $conteudo->user_id),
+                "curtidas" => $conteudo->curtidas()->count(),
+            ];
+        } else
+            return ['status' => false, "erro" => 'Conteudo não existe'];
+
+
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param int $id
@@ -119,6 +144,35 @@ class ConteudoController extends Controller
             return [
                 'status' => true,
                 'lista' => $this->listar($request),
+            ];
+
+            return $conteudo->comentarios;
+
+        }else
+            return ['status' => false, "erro" => 'Conteudo não existe'];
+
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function paginaComentar($id, Request $request)
+    {
+        $conteudo = Conteudo::find($id);
+        if ($conteudo){
+            $user = $request->user();
+            $user->comentarios()->create([
+                'data' => date('Y-m-d H:i:s'),
+                'texto' => $request->texto,
+                'conteudo_id' => $conteudo->id,
+            ]);
+            return [
+                'status' => true,
+                'lista' => $this->pagina($request, $conteudo->user_id),
             ];
 
             return $conteudo->comentarios;

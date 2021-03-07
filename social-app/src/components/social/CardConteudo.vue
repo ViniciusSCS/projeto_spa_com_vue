@@ -83,7 +83,13 @@ export default {
         curtida(id) {
             var self = this
 
-            self.$http.put(self.$urlApi + 'conteudo/curtir/' + id, {},
+            var url = ''
+            if(self.$route.name == 'Home')
+                url = 'conteudo/curtir/'
+            else
+                url = 'conteudo/curtirpagina/'
+
+            self.$http.put(self.$urlApi + url + id, {},
                 {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                 .then(response => {
                     if (response.data.status) {
@@ -139,7 +145,13 @@ export default {
                     text: 'Impossível comentar!',
                 })
             } else {
-                self.$http.put(self.$urlApi + 'conteudo/comentar/' + id, {texto: self.textoComentario},
+                var url = ''
+                if(self.$route.name == 'Home')
+                    url = 'conteudo/comentar/'
+                else
+                    url = 'conteudo/comentarpagina/'
+
+                self.$http.put(self.$urlApi + url + id, {texto: self.textoComentario},
                     {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
                     .then(response => {
                         if (response.status) {

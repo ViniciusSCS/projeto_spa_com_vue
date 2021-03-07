@@ -29,7 +29,9 @@ Route::middleware('auth:api')->get('/usuario/amigos/{id}', [UsuarioController::c
 
 Route::middleware('auth:api')->get('/conteudo/listar', [ConteudoController::class, 'listar']);
 Route::middleware('auth:api')->put('/conteudo/curtir/{id}', [ConteudoController::class, 'curtir']);
+Route::middleware('auth:api')->put('/conteudo/curtirpagina/{id}', [ConteudoController::class, 'paginaCurtir']);
 Route::middleware('auth:api')->post('/conteudo/adicionar', [ConteudoController::class, 'adicionar']);
 Route::middleware('auth:api')->put('/conteudo/comentar/{id}', [ConteudoController::class, 'comentar']);
+Route::middleware('auth:api')->put('/conteudo/comentarpagina/{id}', [ConteudoController::class, 'paginaComentar']);
 Route::middleware('auth:api')->get('/conteudo/pagina/listar/{id}', [ConteudoController::class, 'pagina']);
 
