@@ -234,7 +234,7 @@ class UsuarioController extends Controller
 
         if($amigo && ($user->id != $amigo->id)){
             $user->amigos()->toggle($amigo->id);
-            return ['status' => true, "amigos" => $user->amigos];
+            return ['status' => true, "amigos" => $user->amigos, "seguidores" => $amigo->seguidores];
         }else{
             return ['status' => false, 'erros' => 'Esse usuário não existe'];
         }
@@ -247,7 +247,7 @@ class UsuarioController extends Controller
     {
         $user = $request->user();
         if($user){
-            return ['status' => true, "amigos" => $user->amigos];
+            return ['status' => true, "amigos" => $user->amigos, "seguidores" => $user->seguidores];
         }else{
             return ['status' => false, 'erros' => 'Esse usuário não existe'];
         }
@@ -262,7 +262,8 @@ class UsuarioController extends Controller
         $user = User::find($id);
         $userLogado = $request->user();
         if($user){
-            return ['status' => true, "amigos" => $user->amigos, "amigosLogado" => $userLogado->amigos];
+            return ['status' => true, "amigos" => $user->amigos, "amigosLogado" => $userLogado->amigos,
+                "seguidores" => $user->seguidores];
         }else{
             return ['status' => false, 'erros' => 'Esse usuário não existe'];
         }

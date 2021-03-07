@@ -28,6 +28,16 @@
             </li>
         </span>
 
+        <span slot="menuEsquerdoAmigos">
+            <h2>Seguidores</h2>
+            <li v-if="!seguidores.length">Nenhum seguidor</li>
+            <li v-for="item in seguidores" :key="item.id">
+                <router-link :to="'/pagina/' + item.id + '/' + $slug(item.name, '_')">
+                    {{item.name}}
+                </router-link>
+            </li>
+        </span>
+
         <span slot="principal">
             <publicar-conteudo/>
 
@@ -117,6 +127,7 @@ export default {
                 name: ''
             },
             amigos: [],
+            seguidores: [],
             urlProximaPagina: null,
             controleScroll: false,
         }
@@ -140,6 +151,7 @@ export default {
                             .then(function (response) {
                                 if (response.data.status) {
                                     self.amigos = response.data.amigos
+                                    self.seguidores = response.data.seguidores
                                 }else{
                                     sweetAlert(response.data.erro)
                                 }

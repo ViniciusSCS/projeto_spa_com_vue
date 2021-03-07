@@ -29,6 +29,16 @@
             </li>
         </span>
 
+        <span slot="menuEsquerdoAmigos">
+            <h2>Seguidores</h2>
+            <li v-if="!seguidores.length">Nenhum seguidor</li>
+            <li v-for="item in seguidores" :key="item.id">
+                <router-link :to="'/pagina/' + item.id + '/' + $slug(item.name, '_')">
+                    {{item.name}}
+                </router-link>
+            </li>
+        </span>
+
         <span slot="principal">
             <publicar-conteudo/>
 
@@ -117,6 +127,7 @@ export default {
                             timer: 1500
                         })
                         self.amigosLogado = response.data.amigos
+                        self.seguidores = response.data.seguidores
                         self.isAmigo()
                     } else if (response.data.status == false && response.data.validacao) {
                         var erros = '';
@@ -194,6 +205,7 @@ export default {
                                 .then(function (response) {
                                     if (response.data.status) {
                                         self.amigos = response.data.amigos
+                                        self.seguidores = response.data.seguidores
                                         self.amigosLogado = response.data.amigosLogado
                                         self.isAmigo();
                                     } else {
@@ -225,13 +237,14 @@ export default {
     data() {
         return {
             amigos: [],
+            seguidores: [],
             amigosLogado: [],
 
             usuario: false,
             btnSeguir: false,
-            textBtnSeguir: 'Seguir',
             controleScroll: false,
             urlProximaPagina: null,
+            textBtnSeguir: 'Seguir',
 
             donoPagina:
                 {
