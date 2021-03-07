@@ -109,7 +109,7 @@ export default {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Você está seguindo ...... com sucesso!!',
+                            title: 'Você está seguindo ' + self.donoPagina.name + ' com sucesso!!',
                             showConfirmButton: false,
                             timer: 1500
                         })

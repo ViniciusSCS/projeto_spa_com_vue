@@ -15,6 +15,16 @@
             </grid>
         </span>
 
+        <span slot="menuEsquerdoAmigos">
+            <h2>Seguindo</h2>
+            <li v-if="!amigos.length">Nenhum amigo</li>
+            <li v-for="item in amigos" :key="item.id">
+                <router-link :to="'/pagina/' + item.id + '/' + $slug(item.name, '_')">
+                    {{item.name}}
+                </router-link>
+            </li>
+        </span>
+
         <span slot="principal">
 
             <h2>PERFIL</h2>
@@ -103,12 +113,31 @@ export default {
             password: '',
             description_user: '',
             password_confirmation: '',
+
+            amigos: [],
         }
     },
     created() {
         var self = this
 
         var aux = self.$store.getters.getUsuario
+        self.$http.get(self.$urlApi + 'usuario/amigos',
+            {"headers": {"authorization": "Bearer " + self.$store.getters.getToken}})
+            .then(function (response) {
+                if (response.data.status) {
+                    self.amigos = response.data.amigos
+                }else{
+                    sweetAlert(response.data.erro)
+                }
+            })
+            .catch(e => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'ERRO, tente novamente mais tarde!',
+                })
+            })
+
         if (aux) {
             self.usuario = self.$store.getters.getUsuario
             self.name = self.usuario.name
